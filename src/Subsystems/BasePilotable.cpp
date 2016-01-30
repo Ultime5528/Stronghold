@@ -43,3 +43,12 @@ void BasePilotable::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void BasePilotable::ArcadeDrive(){
+	drive->ArcadeDrive(Robot::oi->getStick().get(), true);
+
+}
+
+
+void BasePilotable::Stop(){
+	drive->ArcadeDrive(0,0, false);
+}

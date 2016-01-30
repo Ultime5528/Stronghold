@@ -4,3 +4,4 @@
 *.project
 *.properties
 *.xml
+/Debug/
