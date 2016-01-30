@@ -35,7 +35,7 @@ void CShoot::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool CShoot::IsFinished() {
-    return IsTimedOut();
+    return IsTimedOut() || !Robot::catapulte->IsLoaded();
 }
 
 // Called once after isFinished returns true

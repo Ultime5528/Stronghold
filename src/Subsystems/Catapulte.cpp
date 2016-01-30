@@ -47,6 +47,10 @@ void Catapulte::Load() {
 void Catapulte::Stop() {
 	shoot->Set(0);
 }
+
+void Catapulte::Unload() {
+	shoot->Set(-0.5);
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
