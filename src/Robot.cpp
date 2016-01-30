@@ -74,6 +74,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+	SmartDashboard::PutNumber("Pot", Robot::bouffeurAvant->GetPot());
 }
 
 void Robot::TestPeriodic() {
