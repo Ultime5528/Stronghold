@@ -25,17 +25,20 @@ Avancer::Avancer(double distance): Command() {
 
 // Called just before this Command runs the first time
 void Avancer::Initialize() {
-
+	Robot::basePilotable->EncoReset();
+	Robot::basePilotable->GyroReset();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Avancer::Execute() {
+	Robot::basePilotable->Avancer();
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Avancer::IsFinished() {
-    return false;
+	return Robot::basePilotable->HasReached(m_distance);
+
 }
 
 // Called once after isFinished returns true
