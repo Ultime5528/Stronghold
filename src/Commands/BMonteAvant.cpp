@@ -34,16 +34,16 @@ void BMonteAvant::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool BMonteAvant::IsFinished() {
-    return false;
+    return Robot::bouffeurAvant->MaxAtteint();
 }
 
 // Called once after isFinished returns true
 void BMonteAvant::End() {
-
+	 Robot::bouffeurAvant->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void BMonteAvant::Interrupted() {
-
+End();
 }

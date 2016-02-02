@@ -34,7 +34,7 @@ void BLoadAvant::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool BLoadAvant::IsFinished() {
-    return false;
+    return Robot::bouffeurAvant->IsLoaded();
 }
 
 // Called once after isFinished returns true
