@@ -29,7 +29,7 @@ void Pilotage::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Pilotage::Execute() {
-
+	Robot::basePilotable->ArcadeDrive();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -39,11 +39,11 @@ bool Pilotage::IsFinished() {
 
 // Called once after isFinished returns true
 void Pilotage::End() {
-
+	Robot::basePilotable->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void Pilotage::Interrupted() {
-
+	End();
 }
