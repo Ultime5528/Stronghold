@@ -29,7 +29,7 @@ void BLoadAvant::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void BLoadAvant::Execute() {
-
+	Robot::bouffeurAvant->SetLoad();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -39,11 +39,11 @@ bool BLoadAvant::IsFinished() {
 
 // Called once after isFinished returns true
 void BLoadAvant::End() {
-
+	Robot::bouffeurAvant->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void BLoadAvant::Interrupted() {
-
+	End();
 }

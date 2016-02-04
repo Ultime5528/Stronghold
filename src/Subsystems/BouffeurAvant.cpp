@@ -67,10 +67,6 @@ void BouffeurAvant::SetLoad() {
 
 }
 
-double BouffeurAvant::GetPot() {
-	return pot->Get();
-}
-
 bool BouffeurAvant::MaxAtteint() {
 	return pot->Get() >= potMax;
 }

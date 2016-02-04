@@ -24,12 +24,14 @@ BDescendAvant::BDescendAvant(): Command() {
 
 // Called just before this Command runs the first time
 void BDescendAvant::Initialize() {
-
+	if(!Robot::bouffeurAvant->MinAtteint()){
+		Robot::bouffeurAvant->Down();
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void BDescendAvant::Execute() {
-	Robot::bouffeurAvant->Down();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

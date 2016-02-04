@@ -43,7 +43,6 @@ public:
 	void Down();
 	void Stop();
 	void SetLoad();
-	double GetPot();
 	bool MaxAtteint();
 	bool MinAtteint();
 	bool IsLoaded();
