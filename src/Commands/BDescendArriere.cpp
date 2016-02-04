@@ -24,7 +24,9 @@ BDescendArriere::BDescendArriere(): Command() {
 
 // Called just before this Command runs the first time
 void BDescendArriere::Initialize() {
-
+	if (!Robot::bouffeurArriere->MinAtteint()){
+		Robot::bouffeurArriere->Down();
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,16 +36,16 @@ void BDescendArriere::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool BDescendArriere::IsFinished() {
-    return false;
+    return Robot::bouffeurArriere->MinAtteint();
 }
 
 // Called once after isFinished returns true
 void BDescendArriere::End() {
-
+	Robot::bouffeurArriere->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void BDescendArriere::Interrupted() {
-
+	End();
 }

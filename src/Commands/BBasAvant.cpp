@@ -29,21 +29,21 @@ void BBasAvant::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void BBasAvant::Execute() {
-
+	Robot::bouffeurAvant->Down();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool BBasAvant::IsFinished() {
-    return false;
+    return Robot::bouffeurAvant->MinAtteint();
 }
 
 // Called once after isFinished returns true
 void BBasAvant::End() {
-
+	Robot::bouffeurAvant->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void BBasAvant::Interrupted() {
-
+	End();
 }

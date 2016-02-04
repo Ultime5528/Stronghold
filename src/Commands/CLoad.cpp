@@ -29,21 +29,21 @@ void CLoad::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void CLoad::Execute() {
-
+	Robot::catapulte->Load();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CLoad::IsFinished() {
-    return false;
+    return Robot::catapulte->IsLoaded();
 }
 
 // Called once after isFinished returns true
 void CLoad::End() {
-
+	Robot::catapulte->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void CLoad::Interrupted() {
-
+	End();
 }
