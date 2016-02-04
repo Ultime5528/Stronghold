@@ -95,6 +95,6 @@ bool BasePilotable::HasTurned(double angle){
 }
 
 void BasePilotable::Tourner(){
-	drive->ArcadeDrive(0, );
+	drive->ArcadeDrive(0, 0.25, true);
 
 }
