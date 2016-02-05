@@ -72,11 +72,16 @@ void Robot::TeleopInit() {
 	// these lines or comment it out.
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
+	BouffeurAvant::potMax = prefs->GetDouble("MaximumAvant", 1);
+	BouffeurAvant::potMin = prefs->GetDouble("MinimumAvant", 0);
+	BouffeurArriere::potMax = prefs->GetDouble("MaximumArriere", 1);
+	BouffeurArriere::potMin = prefs->GetDouble("MinimumArriere", 0);
 }
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	SmartDashboard::PutNumber("Pot", Robot::bouffeurAvant->GetPot());
+	SmartDashboard::PutNumber("PotAvant", Robot::bouffeurAvant->GetPot());
+	SmartDashboard::PutNumber("PotArriere", Robot::bouffeurArriere->GetPot());
 }
 
 void Robot::TestPeriodic() {

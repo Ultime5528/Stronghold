@@ -80,6 +80,9 @@ bool BouffeurArriere::MinAtteint() {
 	return pot->Get() <= potMin;
 }
 
+double BouffeurArriere::GetPot() {
+	return pot->Get();
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
