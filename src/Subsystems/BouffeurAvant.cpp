@@ -64,7 +64,14 @@ void BouffeurAvant::SetLoad() {
 		monte->Set(0.25);
 		isGoingUp = true;
 	}
+}
 
+void BouffeurAvant::Spin() {
+	spin->Set(0.5);
+}
+
+void BouffeurAvant::StopSpin() {
+	spin->Set(0);
 }
 
 bool BouffeurAvant::MaxAtteint() {

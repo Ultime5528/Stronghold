@@ -43,6 +43,8 @@ public:
 	void Down();
 	void Stop();
 	void SetLoad();
+	void Spin();
+	void StopSpin();
 	bool MaxAtteint();
 	bool MinAtteint();
 	bool IsLoaded();
