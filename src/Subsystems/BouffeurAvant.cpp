@@ -67,6 +67,7 @@ void BouffeurAvant::SetLoad() {
 }
 
 void BouffeurAvant::Spin() {
+
 	spin->Set(0.5);
 }
 

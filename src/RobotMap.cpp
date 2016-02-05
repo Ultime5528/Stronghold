@@ -45,6 +45,7 @@ void RobotMap::init() {
     
     bouffeurAvantspin.reset(new Talon(1));
     lw->AddActuator("BouffeurAvant", "spin", (Talon&) bouffeurAvantspin);
+    dynamic_cast<Talon*>(bouffeurAvantspin.get())->SetSafetyEnabled(false);
     
     bouffeurAvantmonte.reset(new Talon(2));
     lw->AddActuator("BouffeurAvant", "monte", (Talon&) bouffeurAvantmonte);
