@@ -43,21 +43,21 @@ void RobotMap::init() {
     catapultelimit.reset(new DigitalInput(0));
     lw->AddSensor("Catapulte", "limit", catapultelimit);
     
-    bouffeurAvantspin.reset(new Talon(1));
-    lw->AddActuator("BouffeurAvant", "spin", (Talon&) bouffeurAvantspin);
-    dynamic_cast<Talon*>(bouffeurAvantspin.get())->SetSafetyEnabled(false);
+    bouffeurAvantspin.reset(new Victor(1));
+    lw->AddActuator("BouffeurAvant", "spin", (Victor&) bouffeurAvantspin);
+    dynamic_cast<Victor*>(bouffeurAvantspin.get())->SetSafetyEnabled(false);
     
-    bouffeurAvantmonte.reset(new Talon(2));
-    lw->AddActuator("BouffeurAvant", "monte", (Talon&) bouffeurAvantmonte);
+    bouffeurAvantmonte.reset(new Victor(2));
+    lw->AddActuator("BouffeurAvant", "monte", (Victor&) bouffeurAvantmonte);
     
     bouffeurAvantpot.reset(new AnalogPotentiometer(0, 1.0, 0.0));
     lw->AddSensor("BouffeurAvant", "pot", bouffeurAvantpot);
     
-    bouffeurArrierespin.reset(new Talon(3));
-    lw->AddActuator("BouffeurArriere", "spin", (Talon&) bouffeurArrierespin);
+    bouffeurArrierespin.reset(new Victor(3));
+    lw->AddActuator("BouffeurArriere", "spin", (Victor&) bouffeurArrierespin);
     
-    bouffeurArrieremonte.reset(new Talon(4));
-    lw->AddActuator("BouffeurArriere", "monte", (Talon&) bouffeurArrieremonte);
+    bouffeurArrieremonte.reset(new Victor(4));
+    lw->AddActuator("BouffeurArriere", "monte", (Victor&) bouffeurArrieremonte);
     
     bouffeurArrierepot.reset(new AnalogPotentiometer(1, 1.0, 0.0));
     lw->AddSensor("BouffeurArriere", "pot", bouffeurArrierepot);
