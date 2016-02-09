@@ -100,6 +100,22 @@ void BouffeurAvant::Reach() {
 	}
 }
 
+void BouffeurAvant::SetSetpoint(double setpoint){
+	m_setpoint = setpoint;
+}
+
+void BouffeurAvant::SetSetpoint(Position setpoint){
+	if (setpoint == Max){
+		m_setpoint = potMax;
+	}
+	else if(setpoint == Min){
+		m_setpoint = potMin;
+	}
+	else if(setpoint == Load){
+		m_setpoint = potLoad;
+	}
+}
+
 
 bool BouffeurAvant::MaxAtteint() {
 	return pot->Get() >= potMax;

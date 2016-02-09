@@ -84,14 +84,14 @@ bool BasePilotable::HasReached(double distance){
 }
 
 bool BasePilotable::HasTurned(double angle){
-//	if (gyro > 0){
-//		return gyro->GetAngle();
-//
-//	}
-//	else if(gyro < 0){
-//		return gyro->GetAngle();
-//
-//	}
+	if (gyro->Get > 0){
+		return gyro->GetAngle();
+
+	}
+	else if(gyro->GetAngle() < 0){
+		return gyro->GetAngle();
+
+	}
 }
 
 void BasePilotable::Tourner(){
