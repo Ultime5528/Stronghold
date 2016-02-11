@@ -37,7 +37,7 @@ void Tourner::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool Tourner::IsFinished() {
-    return Robot::basePilotable->HasTurned(m_angle);
+    return Robot::basePilotable->HasTurned();
 }
 
 // Called once after isFinished returns true
