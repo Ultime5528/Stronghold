@@ -38,26 +38,27 @@ void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
 
     catapulteshoot.reset(new Talon(0));
-    lw->AddActuator("Catapulte", "shoot", (Talon&) catapulteshoot);
+    lw->AddActuator("Catapulte", "shoot", std::static_pointer_cast<Talon>(catapulteshoot));
     
     catapultelimit.reset(new DigitalInput(0));
-    lw->AddSensor("Catapulte", "limit", catapultelimit);
+    lw->AddSensor("Catapulte", "limit", std::static_pointer_cast<DigitalInput>(catapultelimit));
     
     bouffeurAvantspin.reset(new Victor(1));
-    lw->AddActuator("BouffeurAvant", "spin", (Victor&) bouffeurAvantspin);
-    dynamic_cast<Victor*>(bouffeurAvantspin.get())->SetSafetyEnabled(false);
+    lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<Victor>(bouffeurAvantspin));
+    std::static_pointer_cast<Victor>(bouffeurAvantspin)->SetSafetyEnabled(false);
     
     bouffeurAvantmonte.reset(new Victor(2));
-    lw->AddActuator("BouffeurAvant", "monte", (Victor&) bouffeurAvantmonte);
+    lw->AddActuator("BouffeurAvant", "monte", std::static_pointer_cast<Victor>(bouffeurAvantmonte));
     
     bouffeurAvantpot.reset(new AnalogPotentiometer(0, 1.0, 0.0));
     lw->AddSensor("BouffeurAvant", "pot", bouffeurAvantpot);
     
     bouffeurArrierespin.reset(new Victor(3));
-    lw->AddActuator("BouffeurArriere", "spin", (Victor&) bouffeurArrierespin);
+    lw->AddActuator("BouffeurArriere", "spin", std::static_pointer_cast<Victor>(bouffeurArrierespin));
+    std::static_pointer_cast<Victor>(bouffeurArrierespin)->SetSafetyEnabled(false);
     
     bouffeurArrieremonte.reset(new Victor(4));
-    lw->AddActuator("BouffeurArriere", "monte", (Victor&) bouffeurArrieremonte);
+    lw->AddActuator("BouffeurArriere", "monte", std::static_pointer_cast<Victor>(bouffeurArrieremonte));
     
     bouffeurArrierepot.reset(new AnalogPotentiometer(1, 1.0, 0.0));
     lw->AddSensor("BouffeurArriere", "pot", bouffeurArrierepot);
@@ -69,22 +70,22 @@ void RobotMap::init() {
     lw->AddActuator("RouesPivot", "pistonDroit", rouesPivotpistonDroit);
     
     basePilotabledriveGauche.reset(new Talon(5));
-    lw->AddActuator("BasePilotable", "driveGauche", (Talon&) basePilotabledriveGauche);
+    lw->AddActuator("BasePilotable", "driveGauche", std::static_pointer_cast<Talon>(basePilotabledriveGauche));
     
     basePilotabledriveDroite.reset(new Talon(6));
-    lw->AddActuator("BasePilotable", "driveDroite", (Talon&) basePilotabledriveDroite);
+    lw->AddActuator("BasePilotable", "driveDroite", std::static_pointer_cast<Talon>(basePilotabledriveDroite));
     
     basePilotableDrive.reset(new RobotDrive(basePilotabledriveGauche, basePilotabledriveDroite));
-    
     basePilotableDrive->SetSafetyEnabled(true);
-        basePilotableDrive->SetExpiration(0.1);
-        basePilotableDrive->SetSensitivity(0.5);
-        basePilotableDrive->SetMaxOutput(1.0);
+    basePilotableDrive->SetExpiration(0.1);
+    basePilotableDrive->SetSensitivity(0.5);
+    basePilotableDrive->SetMaxOutput(1.0);
 
     basePilotableencoGauche.reset(new Encoder(1, 2, false, Encoder::k4X));
     lw->AddSensor("BasePilotable", "encoGauche", basePilotableencoGauche);
     basePilotableencoGauche->SetDistancePerPulse(1.0);
     basePilotableencoGauche->SetPIDSourceType(PIDSourceType::kRate);
+
     basePilotableencoDroite.reset(new Encoder(3, 4, false, Encoder::k4X));
     lw->AddSensor("BasePilotable", "encoDroite", basePilotableencoDroite);
     basePilotableencoDroite->SetDistancePerPulse(1.0);
