@@ -85,7 +85,7 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::TestPeriodic() {
-	lw->Run();
+	LiveWindow::GetInstance()->Run();
 }
 
 START_ROBOT_CLASS(Robot);
