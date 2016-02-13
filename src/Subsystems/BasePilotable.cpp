@@ -124,4 +124,7 @@ void BasePilotable::SetSetpoint(double setpoint){
 	m_setpoint = setpoint;
 }
 
+double BasePilotable::GetGyroAngle() {
+	return gyro->GetAngle();
+}
 
