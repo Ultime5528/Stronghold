@@ -36,6 +36,10 @@ BasePilotable::BasePilotable() : Subsystem("BasePilotable") {
     m_setpoint = false;
     m_isGoingRight = false;
 
+    m_turning = false;
+    m_isGoingRight = false;
+    m_setpoint = 0.0;
+
 
 }
 
@@ -123,4 +127,7 @@ void BasePilotable::SetSetpoint(double setpoint){
 	m_setpoint = setpoint;
 }
 
+double BasePilotable::GetGyroAngle() {
+	return gyro->GetAngle();
+}
 

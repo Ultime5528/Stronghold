@@ -35,11 +35,11 @@ void RouesPivot::InitDefaultCommand() {
 }
 
 void RouesPivot::PistonGaucheExtend() {
-	pistonGauche->Set(DoubleSolenoid::kForward);
+	pistonGauche->Set(DoubleSolenoid::kReverse);
 }
 
 void RouesPivot::PistonGaucheRetract() {
-	pistonGauche->Set(DoubleSolenoid::kReverse);
+	pistonGauche->Set(DoubleSolenoid::kForward);
 }
 
 void RouesPivot::PistonGaucheOff() {
@@ -47,11 +47,11 @@ void RouesPivot::PistonGaucheOff() {
 }
 
 void RouesPivot::PistonDroitExtend() {
-	pistonDroit->Set(DoubleSolenoid::kForward);
+	pistonDroit->Set(DoubleSolenoid::kReverse);
 }
 
 void RouesPivot::PistonDroitRetract() {
-	pistonDroit->Set(DoubleSolenoid::kReverse);
+	pistonDroit->Set(DoubleSolenoid::kForward);
 }
 
 void RouesPivot::PistonDroitOff() {
