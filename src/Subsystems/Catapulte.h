@@ -32,7 +32,7 @@ private:
 	bool m_reaching;
 	bool m_loaded;
 	bool m_isGoingUp;
-	bool m_setpoint;S
+	bool m_setpoint;
 public:
 
 	static double potMax;

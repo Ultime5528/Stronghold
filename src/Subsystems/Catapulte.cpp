@@ -51,7 +51,22 @@ void Catapulte::InitDefaultCommand() {
 
 	}
 	void Catapulte::Reach() {
+		if(!HasReached()) {
 
+			m_reaching = true;
+
+			if (pot->Get() > m_setpoint){
+				Down();
+				m_isGoingUp = false;
+			}
+			else  {
+				Up();
+					m_isGoingUp = true;
+			}
+
+
+
+			}
 	}
 	void Catapulte::Stay() {
 
