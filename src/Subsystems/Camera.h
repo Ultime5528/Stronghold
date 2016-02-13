@@ -16,10 +16,14 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
+	static double distance;
+	static double angle;
 	Camera();
 	void InitDefaultCommand();
 	void SendImage();
+	void GetInfo();
 };
+
 
 
 #endif
