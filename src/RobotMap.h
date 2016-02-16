@@ -44,7 +44,7 @@ public:
 	static std::shared_ptr<SpeedController> catapulteconv;
 	static std::shared_ptr<SpeedController> catapultemonte;
 	static std::shared_ptr<AnalogPotentiometer> catapultepot;
-	static std::shared_ptr<ADXRS450_Gyro> basePilotableGyro;
+	//static std::shared_ptr<ADXRS450_Gyro> basePilotableGyro;
 	static std::shared_ptr<USBCamera> cameraCam;
 
 	static void init();

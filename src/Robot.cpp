@@ -90,7 +90,6 @@ void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("PotAvant", Robot::bouffeurAvant->GetPot());
 	SmartDashboard::PutNumber("PotArriere", Robot::bouffeurArriere->GetPot());
-	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
 }
 
 void Robot::TestPeriodic() {
