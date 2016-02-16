@@ -11,18 +11,19 @@ AutomaticCapture::AutomaticCapture() : Command()
 void AutomaticCapture::Initialize()
 {
 	//Robot::camera->SendImage();
+	Robot::camera->GetInfo();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutomaticCapture::Execute()
 {
-	Robot::camera->SendImage();
+	//Robot::camera->GetInfo();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutomaticCapture::IsFinished()
 {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true

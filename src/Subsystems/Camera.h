@@ -16,6 +16,15 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
+
+	static int hueMin;
+	static int hueMax;
+	static int satMin;
+	static int satMax;
+	static int valMin;
+	static int valMax;
+
+
 	static double distance;
 	static double angle;
 	Camera();
