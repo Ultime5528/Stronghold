@@ -37,7 +37,6 @@ public:
 
 	static double potMax;
 	static double potMin;
-	static double potLoad;
 
 
 	Catapulte();
