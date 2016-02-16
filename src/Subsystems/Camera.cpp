@@ -18,8 +18,6 @@ Camera::Camera() :
 {
 	//cam = RobotMap::cameraCam;
 
-	/*
-
 	IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &session);
 
 	//Wait(0.5);
@@ -29,14 +27,13 @@ Camera::Camera() :
 	//Wait(0.5);
 	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 
-	*/
 }
 
 void Camera::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
 	//SetDefaultComfrcCreateImage(ImageType::);
-	//SetDefaultCommand (new AutomaticCapture());
+	SetDefaultCommand (new AutomaticCapture());
 	//CameraServer::GetInstance()->StartAutomaticCapture("cam0");
 }
 
@@ -69,12 +66,13 @@ void Camera::GetInfo() {
 
 	IMAQdxGrab(session, frame, true, NULL);
 	//imaqScale(frame, frame, 2, 2, ScalingMode::IMAQ_SCALE_SMALLER, IMAQ_NO_RECT);
-	imaqColorThreshold(binFrame, frame, 1, IMAQ_HSV, &Hue, &Sat, &Val);
+	imaqColorThreshold(binFrame, frame, 255, IMAQ_HSV, &Hue, &Sat, &Val);
 	//imaqColorThreshold(binFrame, frame, 1, IMAQ_HSV, &HueDeux, &SatDeux, &ValDeux);
 	//imaqMorphology(binFrame, binFrame, IMAQ_DILATE, NULL);
 	//imaqParticleFilter4(binFrame, binFrame, &criteria[0], 3, &filterOptions, NULL, &nbParticles);
 
 	CameraServer::GetInstance()->SetImage(binFrame);
+
 
 
 
