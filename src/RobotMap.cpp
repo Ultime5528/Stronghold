@@ -45,22 +45,22 @@ void RobotMap::init() {
     catapulteshoot.reset(new VictorSP(0));
     lw->AddActuator("Catapulte", "shoot", (VictorSP&) catapulteshoot);
     
-    bouffeurAvantspin.reset(new Victor(1));
-    lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<Victor>(bouffeurAvantspin));
-    std::static_pointer_cast<Victor>(bouffeurAvantspin)->SetSafetyEnabled(false);
+    bouffeurAvantspin.reset(new VictorSP(1));
+    lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<VictorSP>(bouffeurAvantspin));
+    std::static_pointer_cast<VictorSP>(bouffeurAvantspin)->SetSafetyEnabled(false);
     
-    bouffeurAvantmonte.reset(new Victor(2));
-    lw->AddActuator("BouffeurAvant", "monte", std::static_pointer_cast<Victor>(bouffeurAvantmonte));
+    bouffeurAvantmonte.reset(new VictorSP(2));
+    lw->AddActuator("BouffeurAvant", "monte", std::static_pointer_cast<VictorSP>(bouffeurAvantmonte));
     
     bouffeurAvantpot.reset(new AnalogPotentiometer(1, 1.0, 0.0));
     lw->AddSensor("BouffeurAvant", "pot", bouffeurAvantpot);
     
-    bouffeurArrierespin.reset(new Victor(3));
-    lw->AddActuator("BouffeurArriere", "spin", std::static_pointer_cast<Victor>(bouffeurArrierespin));
-    std::static_pointer_cast<Victor>(bouffeurArrierespin)->SetSafetyEnabled(false);
+    bouffeurArrierespin.reset(new VictorSP(3));
+    lw->AddActuator("BouffeurArriere", "spin", std::static_pointer_cast<VictorSP>(bouffeurArrierespin));
+    std::static_pointer_cast<VictorSP>(bouffeurArrierespin)->SetSafetyEnabled(false);
     
-    bouffeurArrieremonte.reset(new Victor(4));
-    lw->AddActuator("BouffeurArriere", "monte", std::static_pointer_cast<Victor>(bouffeurArrieremonte));
+    bouffeurArrieremonte.reset(new VictorSP(4));
+    lw->AddActuator("BouffeurArriere", "monte", std::static_pointer_cast<VictorSP>(bouffeurArrieremonte));
     
     bouffeurArrierepot.reset(new AnalogPotentiometer(2, 1.0, 0.0));
     lw->AddSensor("BouffeurArriere", "pot", bouffeurArrierepot);
@@ -71,11 +71,11 @@ void RobotMap::init() {
     rouesPivotpistonDroit.reset(new DoubleSolenoid(2, 3));
     LiveWindow::GetInstance()->AddActuator("RouesPivot", "pistonDroit", rouesPivotpistonDroit);
     
-    basePilotabledriveGauche.reset(new Talon(5));
-    lw->AddActuator("BasePilotable", "driveGauche", std::static_pointer_cast<Talon>(basePilotabledriveGauche));
+    basePilotabledriveGauche.reset(new VictorSP(5));
+    lw->AddActuator("BasePilotable", "driveGauche", std::static_pointer_cast<VictorSP>(basePilotabledriveGauche));
     
-    basePilotabledriveDroite.reset(new Talon(6));
-    lw->AddActuator("BasePilotable", "driveDroite", std::static_pointer_cast<Talon>(basePilotabledriveDroite));
+    basePilotabledriveDroite.reset(new VictorSP(6));
+    lw->AddActuator("BasePilotable", "driveDroite", std::static_pointer_cast<VictorSP>(basePilotabledriveDroite));
     
     basePilotableDrive.reset(new RobotDrive(basePilotabledriveGauche, basePilotabledriveDroite));
     basePilotableDrive->SetInvertedMotor(RobotDrive::MotorType::kRearLeftMotor, true);
@@ -101,14 +101,13 @@ void RobotMap::init() {
 
 
     catapulteconv.reset(new VictorSP(0));
-      lw->AddActuator("Catapulte", "conv",(VictorSP&) catapulteconv);
+    lw->AddActuator("Catapulte", "conv",(VictorSP&) catapulteconv);
 
     catapultemonte.reset(new VictorSP(0));
-      lw->AddActuator("Catapulte", "monte",(VictorSP&) catapultemonte);
+    lw->AddActuator("Catapulte", "monte",(VictorSP&) catapultemonte);
 
     catapultepot.reset(new AnalogPotentiometer(0, 1.0, 0.0));
-      lw->AddSensor("Catapulte", "pot", catapultepot);
-
+    lw->AddSensor("Catapulte", "pot", catapultepot);
 
     cameraCam.reset(new USBCamera("cam0", true));
 
