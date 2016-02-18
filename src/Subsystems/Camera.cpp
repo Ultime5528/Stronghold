@@ -64,13 +64,43 @@ void Camera::GetInfo() {
 	int nbParticles(0);
 
 	IMAQdxGrab(session, frame, true, NULL);
-	//imaqScale(frame, frame, 2, 2, ScalingMode::IMAQ_SCALE_SMALLER, IMAQ_NO_RECT);
+	imaqScale(frame, frame, 2, 2, ScalingMode::IMAQ_SCALE_SMALLER, IMAQ_NO_RECT);
 	imaqColorThreshold(binFrame, frame, 1, IMAQ_HSV, &Hue, &Sat, &Val);
-	//imaqColorThreshold(binFrame, frame, 1, IMAQ_HSV, &HueDeux, &SatDeux, &ValDeux);
+	imaqColorThreshold(binFrame, frame, 1, IMAQ_HSV, &HueDeux, &SatDeux, &ValDeux);
 	imaqMorphology(binFrame, binFrame, IMAQ_DILATE, NULL);
-	//imaqParticleFilter4(binFrame, binFrame, &criteria[0], 3, &filterOptions, NULL, &nbParticles);
+	imaqParticleFilter4(binFrame, binFrame, &criteria[0], 3, &filterOptions, NULL, &nbParticles);
 
 	CameraServer::GetInstance()->SetImage(binFrame);
+
+	int indexMax(0);
+	double aireMax(0);
+
+	if(nbParticles > 0) {
+		for(int particleIndex = 0; particleIndex < nbParticles; particleIndex++){
+
+			double aire (0);
+			imaqMeasureParticle(binFrame, particleIndex, 0, IMAQ_MT_AREA, &aire);
+
+			if (aire > aireMax){
+				aireMax = aire;
+				indexMax = particleIndex;
+			}
+		}
+
+		double hauteurParticule(0);
+		double hypotenuse(0);
+		double distance(0);
+		int hauteurImage(0);
+		int largeurImage(0);
+		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_BOUNDING_RECT_HEIGHT, &hauteurParticule);
+		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_X, &hauteurParticule);
+		imaqGetImageSize(binFrame, &largeurImage, &hauteurImage);
+		hypotenuse = ((1*hauteurImage) / (2*hauteurParticule*0.182428349338192));
+		distance = sqrt(pow(hypotenuse, 2) - 50.17361106388889);
+
+
+
+	}
 
 
 
