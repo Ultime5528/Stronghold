@@ -47,7 +47,6 @@ void RobotMap::init() {
     
     bouffeurAvantspin.reset(new VictorSP(1));
     lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<VictorSP>(bouffeurAvantspin));
-    std::static_pointer_cast<VictorSP>(bouffeurAvantspin)->SetSafetyEnabled(false);
     
     bouffeurAvantmonte.reset(new VictorSP(2));
     lw->AddActuator("BouffeurAvant", "monte", std::static_pointer_cast<VictorSP>(bouffeurAvantmonte));
@@ -57,7 +56,6 @@ void RobotMap::init() {
     
     bouffeurArrierespin.reset(new VictorSP(3));
     lw->AddActuator("BouffeurArriere", "spin", std::static_pointer_cast<VictorSP>(bouffeurArrierespin));
-    std::static_pointer_cast<VictorSP>(bouffeurArrierespin)->SetSafetyEnabled(false);
     
     bouffeurArrieremonte.reset(new VictorSP(4));
     lw->AddActuator("BouffeurArriere", "monte", std::static_pointer_cast<VictorSP>(bouffeurArrieremonte));

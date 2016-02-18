@@ -24,22 +24,23 @@ BSpinAvant::BSpinAvant(): Command() {
 
 // Called just before this Command runs the first time
 void BSpinAvant::Initialize() {
+	Robot::bouffeurAvant->Spin();
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void BSpinAvant::Execute() {
-	Robot::bouffeurAvant->Spin();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool BSpinAvant::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
 void BSpinAvant::End() {
-	Robot::bouffeurAvant->StopSpin();
+
 }
 
 // Called when another command which requires one or more of the same

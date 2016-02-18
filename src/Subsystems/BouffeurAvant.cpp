@@ -73,11 +73,13 @@ void BouffeurAvant::Stop() {
 
 void BouffeurAvant::Spin() {
 
-	spin->Set(0.5);
+	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
+	spin->Set(1);
 }
 
 void BouffeurAvant::StopSpin() {
 	spin->Set(0);
+	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
 }
 
 void BouffeurAvant::Reach() {
