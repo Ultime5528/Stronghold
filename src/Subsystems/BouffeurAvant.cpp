@@ -47,21 +47,21 @@ void BouffeurAvant::InitDefaultCommand() {
 
 void BouffeurAvant::Up() {
 
-	if (pot->Get() >= potMax) {
-		Stop();
+	if (pot->Get() >= potMin) {
+		monte->Set(0.4);
 	}
 	else  {
-		monte->Set(0.25);
+		Stop();
 	}
 }
 
 void BouffeurAvant::Down() {
 
-	if (pot->Get() <= potMin) {
-		Stop();
+	if (pot->Get() <= potMax) {
+		monte->Set(-0.1);
 	}
 	else  {
-		monte->Set(-0.25);
+		Stop();
 	}
 }
 
@@ -88,7 +88,7 @@ void BouffeurAvant::Reach() {
 
 		m_reaching = true;
 
-		if (pot->Get() > m_setpoint){
+		if (pot->Get() < m_setpoint){
 			Down();
 			m_isGoingUp = false;
 		}
@@ -96,9 +96,9 @@ void BouffeurAvant::Reach() {
 			Up();
 			m_isGoingUp = true;
 		}
-
-
-
+	}
+	else {
+		Maintien();
 	}
 }
 
@@ -117,25 +117,33 @@ void BouffeurAvant::SetSetpoint(Position setpoint){
 		m_setpoint = potLoad;
 	}
 }
-
+void BouffeurAvant::Maintien() {
+	if(pot->Get() > potMin)
+		monte->Set(0.1);
+}
 
 bool BouffeurAvant::MaxAtteint() {
-	return pot->Get() >= potMax;
+	return pot->Get() <= potMin;
 }
 
 bool BouffeurAvant::MinAtteint() {
-	return pot->Get() <= potMin;
+	return pot->Get() >= potMax;
 }
 
 bool BouffeurAvant::HasReached() {
 
 	if (m_reaching) {
-		return m_isGoingUp == (pot->Get() >= m_setpoint);
+		bool doneReaching;
+		doneReaching = (m_isGoingUp == (pot->Get() <= m_setpoint));
+		if (doneReaching)
+			m_reaching = false;
+		return doneReaching;
 	}
 
 	else {
-		return (pot->Get() < m_setpoint + 0.02) && (pot->Get() > m_setpoint - 0.02);
+		return (pot->Get() < m_setpoint + 0.002) && (pot->Get() > m_setpoint - 0.002);
 	}
+
 
 }
 
