@@ -9,7 +9,7 @@
 class CSet: public Command {
 public:
 
-	enum Position {Max, Min};
+	enum Position {Shoot, Min};
 
 	CSet(Position setpoint);
 	virtual void Initialize();

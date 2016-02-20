@@ -12,8 +12,8 @@ CSet::CSet(Position setpoint)
 // Called just before this Command runs the first time
 void CSet::Initialize()
 {
-	if(m_setpoint == Max)
-		Robot::catapulte->SetAtMax();
+	if(m_setpoint == Shoot)
+		Robot::catapulte->SetAtShoot();
 	else if (m_setpoint == Min)
 		Robot::catapulte->SetAtMin();
 }

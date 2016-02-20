@@ -23,10 +23,6 @@ public:
 	void ConvThrow();
 	void SpinToBack();
 	void Spin();
-	void ConvToBack();
-	void ConvThrow();
-	void SpinToBack();
-	void Spin();
 	bool IsLoaded();
 };
 

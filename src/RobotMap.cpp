@@ -20,9 +20,6 @@ std::shared_ptr<SpeedController> RobotMap::shooterSpin;
 std::shared_ptr<SpeedController> RobotMap::bouffeurAvantspin;
 std::shared_ptr<SpeedController> RobotMap::bouffeurAvantmonte;
 std::shared_ptr<AnalogPotentiometer> RobotMap::bouffeurAvantpot;
-std::shared_ptr<SpeedController> RobotMap::bouffeurArrierespin;
-std::shared_ptr<SpeedController> RobotMap::bouffeurArrieremonte;
-std::shared_ptr<AnalogPotentiometer> RobotMap::bouffeurArrierepot;
 std::shared_ptr<DoubleSolenoid> RobotMap::rouesPivotpistonGauche;
 std::shared_ptr<DoubleSolenoid> RobotMap::rouesPivotpistonDroit;
 std::shared_ptr<SpeedController> RobotMap::basePilotabledriveGauche;
@@ -54,15 +51,6 @@ void RobotMap::init() {
     
     bouffeurAvantpot.reset(new AnalogPotentiometer(1, 1.0, 0.0));
     lw->AddSensor("BouffeurAvant", "pot", bouffeurAvantpot);
-    
-    bouffeurArrierespin.reset(new VictorSP(3));
-    lw->AddActuator("BouffeurArriere", "spin", std::static_pointer_cast<VictorSP>(bouffeurArrierespin));
-    
-    bouffeurArrieremonte.reset(new VictorSP(4));
-    lw->AddActuator("BouffeurArriere", "monte", std::static_pointer_cast<VictorSP>(bouffeurArrieremonte));
-    
-    bouffeurArrierepot.reset(new AnalogPotentiometer(2, 1.0, 0.0));
-    lw->AddSensor("BouffeurArriere", "pot", bouffeurArrierepot);
     
     rouesPivotpistonGauche.reset(new DoubleSolenoid(0, 1));
     LiveWindow::GetInstance()->AddActuator("RouesPivot", "Piston gauche", rouesPivotpistonGauche);
@@ -99,10 +87,10 @@ void RobotMap::init() {
     lw->AddSensor("BasePilotable", "Gyro", basePilotableGyro);
 
 
-    shooterConv.reset(new VictorSP(0));
+    shooterConv.reset(new VictorSP(7));
     lw->AddActuator("Shooter", "Convoyeur", std::static_pointer_cast<VictorSP>(shooterConv));
 
-    shooterSpin.reset(new VictorSP(0));
+    shooterSpin.reset(new VictorSP(8));
     lw->AddActuator("Shooter", "Monte", std::static_pointer_cast<VictorSP>(shooterSpin));
 
     catapultepot.reset(new AnalogPotentiometer(0, 1.0, 0.0));

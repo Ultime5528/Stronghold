@@ -28,9 +28,6 @@ public:
 	static std::shared_ptr<SpeedController> bouffeurAvantspin;
 	static std::shared_ptr<SpeedController> bouffeurAvantmonte;
 	static std::shared_ptr<AnalogPotentiometer> bouffeurAvantpot;
-	static std::shared_ptr<SpeedController> bouffeurArrierespin;
-	static std::shared_ptr<SpeedController> bouffeurArrieremonte;
-	static std::shared_ptr<AnalogPotentiometer> bouffeurArrierepot;
 	static std::shared_ptr<DoubleSolenoid> rouesPivotpistonGauche;
 	static std::shared_ptr<DoubleSolenoid> rouesPivotpistonDroit;
 	static std::shared_ptr<SpeedController> basePilotabledriveGauche;

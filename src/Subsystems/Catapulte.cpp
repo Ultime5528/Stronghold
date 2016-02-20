@@ -25,7 +25,7 @@ Catapulte::Catapulte() : Subsystem("Catapulte") {
 
     m_reaching = false;
     m_isGoingUp = false;
-    m_setpoint = false;
+    m_setpoint = 0;
 
 }
 
