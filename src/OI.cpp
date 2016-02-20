@@ -15,15 +15,10 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/Autonomous.h"
 #include "Commands/Avancer.h"
-#include "Commands/BDescendArriere.h"
 #include "Commands/BDescendAvant.h"
-#include "Commands/BSetArriere.h"
 #include "Commands/BSetAvant.h"
-#include "Commands/BMonteArriere.h"
 #include "Commands/BMonteAvant.h"
-#include "Commands/BSpinArriere.h"
 #include "Commands/BSpinAvant.h"
-#include "Commands/BSpinInverseAvant.h"
 #include "Commands/CLoad.h"
 #include "Commands/CShoot.h"
 #include "Commands/CUnload.h"
@@ -47,8 +42,6 @@ OI::OI() {
     // SmartDashboard Buttons
     SmartDashboard::PutData("Autonomous", new Autonomous());
     SmartDashboard::PutData("Unload", new Unload());
-    SmartDashboard::PutData("BSpinArriere", new BSpinArriere());
-    SmartDashboard::PutData("BSpinInverseAvant", new BSpinInverseAvant());
     SmartDashboard::PutData("BSpinAvant", new BSpinAvant());
     SmartDashboard::PutData("Tourner", new Tourner());
     SmartDashboard::PutData("Avancer", new Avancer());
@@ -57,8 +50,6 @@ OI::OI() {
     SmartDashboard::PutData("PMonteDroite", new PMonteDroite());
     SmartDashboard::PutData("PMonteGauche", new PMonteGauche());
     SmartDashboard::PutData("PMonte", new PMonte());
-    SmartDashboard::PutData("BDescendArriere", new BDescendArriere());
-    SmartDashboard::PutData("BMonteArriere", new BMonteArriere());
     SmartDashboard::PutData("BDescendAvant", new BDescendAvant());
     SmartDashboard::PutData("BMonteAvant", new BMonteAvant());
     SmartDashboard::PutData("CShoot", new CShoot());

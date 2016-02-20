@@ -1,40 +1,44 @@
-#include "BStopSpinAvant.h"
+#include "CSet.h"
 
-BStopSpinAvant::BStopSpinAvant()
+CSet::CSet(Position setpoint)
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
-	Requires(Robot::bouffeurAvant.get());
+	Requires(Robot::catapulte.get());
+
+	m_setpoint = setpoint;
 }
 
-
 // Called just before this Command runs the first time
-void BStopSpinAvant::Initialize()
+void CSet::Initialize()
 {
-	Robot::bouffeurAvant->StopSpin();
+	if(m_setpoint == Max)
+		Robot::catapulte->SetAtMax();
+	else if (m_setpoint == Min)
+		Robot::catapulte->SetAtMin();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void BStopSpinAvant::Execute()
+void CSet::Execute()
 {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool BStopSpinAvant::IsFinished()
+bool CSet::IsFinished()
 {
-	return true;
+	return false;
 }
 
 // Called once after isFinished returns true
-void BStopSpinAvant::End()
+void CSet::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void BStopSpinAvant::Interrupted()
+void CSet::Interrupted()
 {
-	End();
+
 }
