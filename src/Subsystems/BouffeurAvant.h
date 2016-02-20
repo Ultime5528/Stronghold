@@ -50,6 +50,7 @@ public:
 	void SetSetpoint(double setpoint);
 	void SetSetpoint (Position setpoint);
 	void Reach();
+	void Maintien();
 	bool MaxAtteint();
 	bool MinAtteint();
 	bool HasReached();

@@ -75,8 +75,10 @@ void Robot::TeleopInit() {
 
 	BouffeurAvant::potMax = prefs->GetDouble("MaximumAvant", 1);
 	BouffeurAvant::potMin = prefs->GetDouble("MinimumAvant", 0);
-	BouffeurArriere::potMax = prefs->GetDouble("MaximumArriere", 1);
-	BouffeurArriere::potMin = prefs->GetDouble("MinimumArriere", 0);
+
+	Catapulte::potMax = prefs->GetDouble("MaximumCatapulte", 1);
+	Catapulte::potMin = prefs->GetDouble("MinimumCatapulte", 0);
+	Catapulte::potShoot = prefs->GetDouble("ShootCatapulte", 0);
 
 	Camera::hueMin = prefs->GetDouble("HueMin", 31);
 	Camera::hueMax = prefs->GetDouble("HueMax", 74);

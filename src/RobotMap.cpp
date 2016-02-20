@@ -35,6 +35,7 @@ std::shared_ptr<Encoder> RobotMap::basePilotableencoDroite;
 std::shared_ptr<AnalogPotentiometer> RobotMap::catapultepot;
 std::shared_ptr<ADXRS450_Gyro> RobotMap::basePilotableGyro;
 std::shared_ptr<USBCamera> RobotMap::cameraCam;
+std::shared_ptr<DigitalInput> RobotMap::catapultelimit;
 
 
 void RobotMap::init() {
@@ -43,7 +44,7 @@ void RobotMap::init() {
 
 
     catapulteshoot.reset(new VictorSP(0));
-    lw->AddActuator("Catapulte", "shoot", (VictorSP&) catapulteshoot);
+    lw->AddActuator("Catapulte", "shoot", std::static_pointer_cast<VictorSP>(catapulteshoot));
     
     bouffeurAvantspin.reset(new VictorSP(1));
     lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<VictorSP>(bouffeurAvantspin));
@@ -108,5 +109,7 @@ void RobotMap::init() {
     lw->AddSensor("Catapulte", "pot", catapultepot);
 
     cameraCam.reset(new USBCamera("cam0", true));
+
+    catapultelimit.reset(new DigitalInput());
 
 }
