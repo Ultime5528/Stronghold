@@ -2,16 +2,46 @@
 #include "../RobotMap.h"
 
 Shooter::Shooter() :
-		Subsystem("ExampleSubsystem")
+		Subsystem("Shooter")
 {
-
+	spin = RobotMap::shooterSpin;
+	conv = RobotMap::shooterConv;
+	limit = RobotMap::shooterLimit;
 }
 
 void Shooter::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+void Shooter::StopConv() {
+	conv->Set(0);
+}
+
+
+void Shooter::StopSpin(){
+	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
+	spin->Set(0);
+}
+
+void Shooter::ConvToBack() {
+	if(!IsLoaded())
+		conv->Set(0.14);
+}
+
+void Shooter::ConvThrow() {
+	conv->Set(-1);
+}
+
+void Shooter::SpinToBack() {
+	spin->Set(0.33);
+}
+
+void Shooter::Spin() {
+	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
+	spin->Set(-1);
+}
+
+bool Shooter::IsLoaded(){
+	return limit->Get();
+}
