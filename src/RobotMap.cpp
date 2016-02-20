@@ -40,13 +40,13 @@ void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
 
 
-    catapulteMonte.reset(new VictorSP(0));
+    catapulteMonte.reset(new VictorSP(8));
     lw->AddActuator("Catapulte", "Monte", std::static_pointer_cast<VictorSP>(catapulteMonte));
     
-    bouffeurAvantspin.reset(new VictorSP(1));
+    bouffeurAvantspin.reset(new VictorSP(5));
     lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<VictorSP>(bouffeurAvantspin));
     
-    bouffeurAvantmonte.reset(new VictorSP(2));
+    bouffeurAvantmonte.reset(new VictorSP(4));
     lw->AddActuator("BouffeurAvant", "monte", std::static_pointer_cast<VictorSP>(bouffeurAvantmonte));
     
     bouffeurAvantpot.reset(new AnalogPotentiometer(1, 1.0, 0.0));
@@ -58,10 +58,10 @@ void RobotMap::init() {
     rouesPivotpistonDroit.reset(new DoubleSolenoid(2, 3));
     LiveWindow::GetInstance()->AddActuator("RouesPivot", "Piston droit", rouesPivotpistonDroit);
     
-    basePilotabledriveGauche.reset(new VictorSP(5));
+    basePilotabledriveGauche.reset(new VictorSP(0));
     lw->AddActuator("BasePilotable", "driveGauche", std::static_pointer_cast<VictorSP>(basePilotabledriveGauche));
     
-    basePilotabledriveDroite.reset(new VictorSP(6));
+    basePilotabledriveDroite.reset(new VictorSP(1));
     lw->AddActuator("BasePilotable", "driveDroite", std::static_pointer_cast<VictorSP>(basePilotabledriveDroite));
     
     basePilotableDrive.reset(new RobotDrive(basePilotabledriveGauche, basePilotabledriveDroite));
@@ -87,10 +87,10 @@ void RobotMap::init() {
     lw->AddSensor("BasePilotable", "Gyro", basePilotableGyro);
 
 
-    shooterConv.reset(new VictorSP(7));
+    shooterConv.reset(new VictorSP(6));
     lw->AddActuator("Shooter", "Convoyeur", std::static_pointer_cast<VictorSP>(shooterConv));
 
-    shooterSpin.reset(new VictorSP(8));
+    shooterSpin.reset(new VictorSP(7));
     lw->AddActuator("Shooter", "Monte", std::static_pointer_cast<VictorSP>(shooterSpin));
 
     catapultepot.reset(new AnalogPotentiometer(0, 1.0, 0.0));
