@@ -1,44 +1,39 @@
-#include "CSet.h"
+#include "CMaintien.h"
 
-CSet::CSet(Position setpoint)
+CMaintien::CMaintien()
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(Robot::catapulte.get());
-
-	m_setpoint = setpoint;
 }
 
 // Called just before this Command runs the first time
-void CSet::Initialize()
+void CMaintien::Initialize()
 {
-	if(m_setpoint == Shoot)
-		Robot::catapulte->SetAtShoot();
-	else if (m_setpoint == Min)
-		Robot::catapulte->SetAtMin();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void CSet::Execute()
+void CMaintien::Execute()
 {
 	Robot::catapulte->Reach();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool CSet::IsFinished()
+bool CMaintien::IsFinished()
 {
-	return Robot::catapulte->HasReached();
+	return false;
 }
 
 // Called once after isFinished returns true
-void CSet::End()
+void CMaintien::End()
 {
-	Scheduler::GetInstance()->AddCommand(new CMaintien());
+	Robot::catapulte->StopMonte();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void CSet::Interrupted()
+void CMaintien::Interrupted()
 {
-	Robot::catapulte->StopMonte();
+	End();
 }
