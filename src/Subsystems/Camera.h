@@ -1,5 +1,5 @@
-#ifndef Camera_H
-#define Camera_H
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
@@ -13,8 +13,9 @@ private:
 	std::shared_ptr<USBCamera> cam;
 	IMAQdxSession session;
 	Image* frame;
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
+
+	bool analysed;
+
 public:
 
 	static int hueMin;
@@ -24,13 +25,15 @@ public:
 	static int valMin;
 	static int valMax;
 
-
 	static double distance;
 	static double angle;
+
 	Camera();
 	void InitDefaultCommand();
 	void SendImage();
 	void GetInfo();
+	void StartAnalyse();
+	bool HasAnalysed();
 };
 
 

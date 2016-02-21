@@ -24,7 +24,7 @@ CSpin::CSpin(): Command() {
 
 // Called just before this Command runs the first time
 void CSpin::Initialize() {
-	SetTimeout(0.5);
+	SetTimeout(1);
 	Robot::shooter->Spin();
 }
 

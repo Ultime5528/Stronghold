@@ -1,5 +1,5 @@
-#ifndef Shoot_H
-#define Shoot_H
+#ifndef SHOOT_H
+#define SHOOT_H
 
 #include "Commands/CommandGroup.h"
 #include "WPILib.h"

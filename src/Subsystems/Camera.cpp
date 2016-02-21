@@ -42,6 +42,9 @@ void Camera::SendImage() {
 	CameraServer::GetInstance()->SetImage(frame);
 }
 void Camera::GetInfo() {
+
+	analysed = false;
+
 	Image* binFrame;
 
 	binFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
@@ -99,13 +102,20 @@ void Camera::GetInfo() {
 		distance = sqrt(pow(hypotenuse, 2) - 50.17361106388889);
 
 
-
 	}
 
-
+	analysed = true;
 
 }
 
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+void Camera::StartAnalyse() {
+
+	analysed = false;
+
+}
+
+bool Camera::HasAnalysed() {
+
+	return analysed;
+}

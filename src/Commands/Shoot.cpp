@@ -19,5 +19,11 @@ Shoot::Shoot()
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 	AddSequential(new CSet(CSet::Position::Shoot));
+	AddSequential(new Analyse());
+	AddSequential(new Tourner(Camera::angle));
+	AddSequential(new Avancer(Camera::distance));
+	AddSequential(new CSpin());
+	AddSequential(new CShoot());
+
 
 }

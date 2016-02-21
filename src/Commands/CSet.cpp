@@ -33,7 +33,8 @@ bool CSet::IsFinished()
 // Called once after isFinished returns true
 void CSet::End()
 {
-	Scheduler::GetInstance()->AddCommand(new CMaintien());
+	if(m_setpoint == Shoot)
+		Scheduler::GetInstance()->AddCommand(new CMaintien());
 }
 
 // Called when another command which requires one or more of the same
