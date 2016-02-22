@@ -44,7 +44,7 @@ public:
 	static std::shared_ptr<ADXRS450_Gyro> basePilotableGyro;
 	static std::shared_ptr<USBCamera> cameraCam;
 	static std::shared_ptr<DigitalInput> shooterLimit;
-
+	static std::shared_ptr<DigitalInput> bouffeurAvantlimit;
 	static void init();
 };
 #endif

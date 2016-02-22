@@ -26,14 +26,13 @@ Camera::Camera() :
 	//Wait(0.5);
 	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
 
+	analysed = false;
+
 }
 
 void Camera::InitDefaultCommand()
 {
-	// Set the default command for a subsystem here.
-	//SetDefaultComfrcCreateImage(ImageType::);
-	//SetDefaultCommand (new AutomaticCapture());
-	//CameraServer::GetInstance()->StartAutomaticCapture("cam0");
+	//SetDefaultCommand(new AutomaticCapture());
 }
 
 void Camera::SendImage() {

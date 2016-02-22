@@ -43,5 +43,5 @@ void Shooter::Spin() {
 }
 
 bool Shooter::IsLoaded(){
-	return limit->Get();
+	return !limit->Get();
 }

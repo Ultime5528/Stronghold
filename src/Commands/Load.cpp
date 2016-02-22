@@ -1,13 +1,12 @@
-#include "Shoot.h"
-#include "CSet.h"
-#include "Analyse.h"
-#include "Tourner.h"
-#include "Avancer.h"
-#include "CSpin.h"
-#include "CShoot.h"
+#include "Load.h"
+#include "BSetAvant.h"
+#include "BWaitLoad.h"
+#include "CLoad.h"
+#include "BSpinAvant.h"
+#include "BStopSpinAvant.h"
 
 
-Shoot::Shoot()
+Load::Load()
 {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -25,13 +24,11 @@ Shoot::Shoot()
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new CSet(CSet::Position::Shoot));
-	//AddSequential(new Analyse());
-	//AddSequential(new Tourner(Camera::angle));
-	//AddSequential(new Avancer(Camera::distance));
-	AddSequential(new CSpin());
-	AddSequential(new CShoot());
-	AddSequential(new CSet(CSet::Position::Min));
-
+	AddSequential(new BSpinAvant());
+	AddSequential(new BSetAvant(BouffeurAvant::Position::Load));
+	AddSequential(new BWaitLoad());
+	AddParallel(new BSetAvant(BouffeurAvant::Position::Min));
+	AddSequential(new CLoad());
+	AddSequential(new BStopSpinAvant());
 
 }

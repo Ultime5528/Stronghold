@@ -73,25 +73,25 @@ void Robot::TeleopInit() {
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 
-	BouffeurAvant::potMax = prefs->GetDouble("MaximumAvant", 1);
+	BouffeurAvant::potMax = prefs->GetDouble("MaximumAvant", 0.34);
 	BouffeurAvant::potMin = prefs->GetDouble("MinimumAvant", 0);
 
 	Catapulte::potMax = prefs->GetDouble("MaximumCatapulte", 1);
 	Catapulte::potMin = prefs->GetDouble("MinimumCatapulte", 0);
 	Catapulte::potShoot = prefs->GetDouble("ShootCatapulte", 0);
-
+/*
 	Camera::hueMin = prefs->GetDouble("HueMin", 31);
 	Camera::hueMax = prefs->GetDouble("HueMax", 74);
 	Camera::satMin = prefs->GetDouble("SatMin", 7);
 	Camera::satMax = prefs->GetDouble("SatMax", 64);
 	Camera::valMin = prefs->GetDouble("ValMin", 39);
-	Camera::valMax = prefs->GetDouble("ValMax", 116);
+	Camera::valMax = prefs->GetDouble("ValMax", 116);*/
 }
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	SmartDashboard::PutNumber("PotAvant", Robot::bouffeurAvant->GetPot());
-	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
+	SmartDashboard::PutBoolean("Switch shooter", Robot::shooter->IsLoaded());
+	SmartDashboard::PutBoolean("Switch intake", Robot::bouffeurAvant->IsPressed());
 }
 
 void Robot::TestPeriodic() {

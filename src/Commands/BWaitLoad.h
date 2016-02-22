@@ -1,14 +1,14 @@
-#ifndef BSTOPSPINAVANT_H
-#define BSTOPSPINAVANT_H
+#ifndef BWAITLOAD_H
+#define BWAITLOAD_H
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
 #include "../Robot.h"
 
-class BStopSpinAvant: public Command
+class BWaitLoad: public Command
 {
 public:
-	BStopSpinAvant();
+
+	BWaitLoad();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

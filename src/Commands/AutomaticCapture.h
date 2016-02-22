@@ -1,5 +1,5 @@
-#ifndef AutomaticCapture_H
-#define AutomaticCapture_H
+#ifndef AUTOMATICCAPTURE_H
+#define AUTOMATICCAPTURE_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
