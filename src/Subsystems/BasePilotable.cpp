@@ -37,7 +37,7 @@ BasePilotable::BasePilotable() : Subsystem("BasePilotable") {
     m_isGoingRight = false;
     m_setpoint = 0.0;
 
-    //gyro->Calibrate();
+    gyro->Calibrate();
 }
 
 void BasePilotable::InitDefaultCommand() {

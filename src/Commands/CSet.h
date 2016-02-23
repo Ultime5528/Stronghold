@@ -10,8 +10,9 @@ class CSet: public Command {
 public:
 
 	enum Position {Shoot, Min};
+	bool m_another;
 
-	CSet(Position setpoint);
+	CSet(Position setpoint, bool another = true);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

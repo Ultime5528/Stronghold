@@ -12,6 +12,8 @@ private:
 	std::shared_ptr<SpeedController> conv;
 	std::shared_ptr<DigitalInput> limit;
 
+	int i;
+
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 public:
@@ -24,6 +26,7 @@ public:
 	void SpinToBack();
 	void Spin();
 	bool IsLoaded();
+	void Throw();
 };
 
 #endif

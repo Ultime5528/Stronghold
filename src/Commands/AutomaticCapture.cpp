@@ -1,6 +1,6 @@
 #include "AutomaticCapture.h"
 
-AutomaticCapture::AutomaticCapture() : Command()
+AutomaticCapture::AutomaticCapture() : Command("AutomaticCapture")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);

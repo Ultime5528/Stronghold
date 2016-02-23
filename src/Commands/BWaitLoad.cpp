@@ -1,6 +1,9 @@
 #include "BWaitLoad.h"
+#include "BSetAvant.h"
+#include "../Subsystems/BouffeurAvant.h"
+#include "Load.h"
 
-BWaitLoad::BWaitLoad()
+BWaitLoad::BWaitLoad() : Command("BWaitLoad")
 {
 	Requires(Robot::bouffeurAvant.get());
 		Robot::bouffeurAvant->SetSetpoint(BouffeurAvant::Position::Load);
@@ -32,8 +35,12 @@ bool BWaitLoad::IsFinished()
 // Called once after isFinished returns true
 void BWaitLoad::End()
 {
-	DriverStation::ReportError("Fin BWaitLoad");
-  Robot::bouffeurAvant->Stop();
+	DriverStation::ReportError("Fin BWaitLoad");                                         //"Antoine becomes captain" - 2/22/2016 5:35
+	Scheduler::GetInstance()->AddCommand(new Load());
+
+	//Scheduler::GetInstance()->AddCommand(new BSetAvant(BouffeurAvant::Position::Min));
+  //Robot::bouffeurAvant->Stop();
+
 }
 
 // Called when another command which requires one or more of the same

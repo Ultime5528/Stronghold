@@ -7,6 +7,8 @@ Shooter::Shooter() :
 	spin = RobotMap::shooterSpin;
 	conv = RobotMap::shooterConv;
 	limit = RobotMap::shooterLimit;
+
+	i = 0;
 }
 
 void Shooter::InitDefaultCommand()
@@ -20,13 +22,13 @@ void Shooter::StopConv() {
 
 
 void Shooter::StopSpin(){
-	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
+	//std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
 	spin->Set(0);
 }
 
 void Shooter::ConvToBack() {
 	if(!IsLoaded())
-		conv->Set(0.14);
+		conv->Set(0.16);
 }
 
 void Shooter::ConvThrow() {
@@ -38,10 +40,30 @@ void Shooter::SpinToBack() {
 }
 
 void Shooter::Spin() {
-	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
+	//std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
 	spin->Set(-1);
 }
 
 bool Shooter::IsLoaded(){
 	return !limit->Get();
+}
+
+void Shooter::Throw() {
+
+	i++;
+
+	if(i < 200) {
+
+		Spin();
+
+	}
+	else if(i < 600) {
+
+		Spin();
+		ConvThrow();
+
+	}
+
+
+
 }

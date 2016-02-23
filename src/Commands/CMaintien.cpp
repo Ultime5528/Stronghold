@@ -1,6 +1,6 @@
 #include "CMaintien.h"
 
-CMaintien::CMaintien()
+CMaintien::CMaintien() : Command("CMaintien")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);

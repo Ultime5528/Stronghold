@@ -1,18 +1,23 @@
 #include "CSet.h"
 #include "CMaintien.h"
+#include "CSpin.h"
+#include "BSetAvant.h"
+#include "../Subsystems/BouffeurAvant.h"
 
-CSet::CSet(Position setpoint)
+CSet::CSet(Position setpoint, bool another) : Command("CSet")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(Robot::catapulte.get());
 
 	m_setpoint = setpoint;
+	m_another = another;
 }
 
 // Called just before this Command runs the first time
 void CSet::Initialize()
 {
+	  DriverStation::ReportError("DÉbut de CSet");
 	if(m_setpoint == Shoot)
 		Robot::catapulte->SetAtShoot();
 	else if (m_setpoint == Min)
@@ -34,8 +39,17 @@ bool CSet::IsFinished()
 // Called once after isFinished returns true
 void CSet::End()
 {
-	if(m_setpoint == Shoot)
+	  DriverStation::ReportError("Fin Cset");
+	if(m_setpoint == Shoot) {
 		Scheduler::GetInstance()->AddCommand(new CMaintien());
+		Scheduler::GetInstance()->AddCommand(new CSpin());
+	}
+
+
+	if(m_another) {
+		Scheduler::GetInstance()->AddCommand(new BSetAvant(BouffeurAvant::Position::Load));
+	}
+
 }
 
 // Called when another command which requires one or more of the same

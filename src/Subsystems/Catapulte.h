@@ -27,7 +27,7 @@ private:
 
 	bool m_reaching;
 	bool m_isGoingUp;
-	bool m_setpoint;
+	double m_setpoint;
 
 public:
 

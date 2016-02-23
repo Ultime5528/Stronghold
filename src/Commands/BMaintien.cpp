@@ -1,6 +1,6 @@
 #include "BMaintien.h"
 
-BMaintien::BMaintien()
+BMaintien::BMaintien() : Command("BMaintien")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
@@ -16,7 +16,7 @@ void BMaintien::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void BMaintien::Execute()
 {
-	Robot::bouffeurAvant->Reach();
+	Robot::bouffeurAvant->ReachMaintien();
 }
 
 // Make this return true when this Command no longer needs to run execute()

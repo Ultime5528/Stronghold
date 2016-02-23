@@ -32,7 +32,7 @@ Camera::Camera() :
 
 void Camera::InitDefaultCommand()
 {
-	//SetDefaultCommand(new AutomaticCapture());
+	SetDefaultCommand(new AutomaticCapture());
 }
 
 void Camera::SendImage() {

@@ -15,13 +15,14 @@
 #include "../RobotMap.h"
 
 
-double Catapulte::potMax(0);
-double Catapulte::potMin(0);
-double Catapulte::potShoot(0);
+double Catapulte::potMax(0.4);
+double Catapulte::potMin(0.26);
+double Catapulte::potShoot(0.275);
 
 Catapulte::Catapulte() : Subsystem("Catapulte") {
 
     monte = RobotMap::catapulteMonte;
+    pot = RobotMap::catapultepot;
 
     m_reaching = false;
     m_isGoingUp = false;
@@ -65,7 +66,7 @@ void Catapulte::Reach() {
 void Catapulte::Up() {
 
 	if (pot->Get() >= potMin) {
-		monte->Set(0.4);
+		monte->Set(0.5);
 	}
 	else  {
 		StopMonte();
@@ -74,7 +75,7 @@ void Catapulte::Up() {
 
 void Catapulte::Down() {
 	if (pot->Get() <= potMax) {
-		monte->Set(-0.1);
+		monte->Set(-0.15);
 	}
 	else  {
 		StopMonte();
@@ -88,7 +89,7 @@ void Catapulte::StopMonte() {
 
 void Catapulte::Maintien() {
 	if(pot->Get() > potMin)
-		monte->Set(0.1);
+		monte->Set(0.08);
 }
 
 bool Catapulte::HasReached() {

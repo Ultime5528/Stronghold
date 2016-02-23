@@ -1,6 +1,6 @@
 #include "Analyse.h"
 
-Analyse::Analyse()
+Analyse::Analyse() : Command("Analyse")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
