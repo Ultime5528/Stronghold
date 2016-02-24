@@ -60,12 +60,13 @@ void BasePilotable::ArcadeDrive(){
 
 
 void BasePilotable::Stop(){
-	drive->ArcadeDrive(0,0, false);
+	//drive->ArcadeDrive(0,0, false);
 	m_turning = false;
+	drive->StopMotor();
 }
 
 void BasePilotable::Avancer(){
-	 drive->ArcadeDrive(.2, -1 * constanteGyro * gyro->GetAngle());
+	 drive->ArcadeDrive(.4, -1 * constanteGyro * gyro->GetAngle());
 
 }
 
@@ -88,36 +89,27 @@ bool BasePilotable::HasReached(double distance){
 
 }
 
-bool BasePilotable::HasTurned(){
-	if (m_turning) {
-			return m_isGoingRight == (gyro->GetAngle() >= m_setpoint);
-		}
+bool BasePilotable::HasTurned(double angle){
 
-		else {
-			return (gyro->GetAngle() < m_setpoint + 0.2) && (gyro->GetAngle() > m_setpoint - 0.2);
-		}
-
+	if(m_isGoingRight)
+		return GetGyroAngle() >= angle;
+	else
+		return GetGyroAngle() <= angle;
 
 }
 
 void BasePilotable::Tourner() {
 
-	if(!HasTurned()) {
 
-		m_turning = true;
-
-		if (gyro->GetAngle() > m_setpoint){
-			drive->ArcadeDrive(0, .3, false);
+		if (GetGyroAngle() > m_setpoint){
+			drive->ArcadeDrive(0, -.5, false);
 			m_isGoingRight = false;
 		}
 		else  {
-			drive->ArcadeDrive(0, -.3, false);
+			drive->ArcadeDrive(0, .5, false);
 			m_isGoingRight = true;
 		}
 
-
-
-	}
 }
 
 void BasePilotable::SetSetpoint(double setpoint){
@@ -126,7 +118,7 @@ void BasePilotable::SetSetpoint(double setpoint){
 
 double BasePilotable::GetGyroAngle() {
 
-	return gyro->GetAngle();
+	return -gyro->GetAngle();
 
 }
 

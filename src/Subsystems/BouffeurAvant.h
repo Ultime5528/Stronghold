@@ -36,27 +36,26 @@ private:
 	double m_setpoint;
 
 public:
-	enum Position {Max, Min, Load};
+	enum Position {Haut, Bas, Load};
 
-	static double potMax;
-	static double potMin;
+	static double potBas;
+	static double potHaut;
 	static double potLoad;
+	static double potLent;
 
 	BouffeurAvant();
 	void InitDefaultCommand();
 	void Up();
 	void Down();
-	void DownLent();
 	void Stop();
 	void Spin();
+	void SpinLent();
 	void StopSpin();
 	void SetSetpoint(double setpoint);
 	void SetSetpoint (Position setpoint);
 	void Reach();
 	void ReachMaintien();
 	void Maintien();
-	bool MaxAtteint();
-	bool MinAtteint();
 	bool HasReached();
 	bool IsPressed();
 	double GetPot();

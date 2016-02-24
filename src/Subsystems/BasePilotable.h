@@ -49,7 +49,7 @@ public:
 	void EncoReset();
 	bool HasReached(double distance);
 	void Tourner();
-	bool HasTurned();
+	bool HasTurned(double angle);
 	void SetSetpoint(double setpoint);
 	double GetGyroAngle();
 

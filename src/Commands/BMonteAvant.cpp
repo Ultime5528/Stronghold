@@ -24,9 +24,7 @@ BMonteAvant::BMonteAvant(): Command("BMonteAvant") {
 
 // Called just before this Command runs the first time
 void BMonteAvant::Initialize() {
-	if(!Robot::bouffeurAvant->MaxAtteint()){
-		Robot::bouffeurAvant->Up();
-	}
+	Robot::bouffeurAvant->Up();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -36,7 +34,7 @@ void BMonteAvant::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool BMonteAvant::IsFinished() {
-    return Robot::bouffeurAvant->MaxAtteint();
+    return true;
 }
 
 // Called once after isFinished returns true

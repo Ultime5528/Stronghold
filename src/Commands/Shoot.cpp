@@ -1,5 +1,5 @@
 #include "Shoot.h"
-#include "CSet.h"
+#include "CSetShoot.h"
 #include "Analyse.h"
 #include "Tourner.h"
 #include "Avancer.h"
@@ -25,13 +25,13 @@ Shoot::Shoot()
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new CSet(CSet::Position::Shoot));
+	AddSequential(new CSetShoot());
 	//AddSequential(new Analyse());
 	//AddSequential(new Tourner(Camera::angle));
 	//AddSequential(new Avancer(Camera::distance));
 	AddSequential(new CSpin());
 	AddSequential(new CShoot());
-	AddSequential(new CSet(CSet::Position::Min));
+	//AddSequential(new CSet(CSet::Position::Min));
 
 
 }

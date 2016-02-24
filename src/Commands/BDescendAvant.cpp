@@ -24,9 +24,8 @@ BDescendAvant::BDescendAvant(): Command("BDescendAvant") {
 
 // Called just before this Command runs the first time
 void BDescendAvant::Initialize() {
-	if(!Robot::bouffeurAvant->MinAtteint()){
-		Robot::bouffeurAvant->Down();
-	}
+	Robot::bouffeurAvant->Down();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -36,7 +35,7 @@ void BDescendAvant::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool BDescendAvant::IsFinished() {
-    return Robot::bouffeurAvant->MinAtteint();
+    return true;
 }
 
 // Called once after isFinished returns true

@@ -15,6 +15,7 @@
 #include "../RobotMap.h"
 
 
+double Catapulte::potLoad(0.43);
 double Catapulte::potMax(0.4);
 double Catapulte::potMin(0.26);
 double Catapulte::potShoot(0.275);
@@ -40,6 +41,10 @@ void Catapulte::SetAtShoot() {
 
 void Catapulte::SetAtMin() {
 	m_setpoint = potMax;
+}
+
+void Catapulte::SetAtLoad() {
+	m_setpoint = potLoad;
 }
 
 void Catapulte::Reach() {
@@ -92,7 +97,16 @@ void Catapulte::Maintien() {
 		monte->Set(0.08);
 }
 
+void Catapulte::MaintienLoad() {
+	monte->Set(0.2);
+}
+
 bool Catapulte::HasReached() {
+
+	if(m_setpoint == potMax && pot->Get() > potMax) {
+		return true;
+	}
+
 	if (m_reaching) {
 
 		bool doneReaching;
@@ -108,4 +122,8 @@ bool Catapulte::HasReached() {
 		return (pot->Get() < m_setpoint + 0.004) && (pot->Get() > m_setpoint - 0.004);
 	}
 
+}
+
+double Catapulte::GetPot() {
+	return pot->Get();
 }

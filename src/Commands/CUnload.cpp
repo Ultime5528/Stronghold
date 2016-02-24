@@ -24,22 +24,24 @@ CUnload::CUnload(): Command() {
 
 // Called just before this Command runs the first time
 void CUnload::Initialize() {
-	SetTimeout(1);
+	SetTimeout(0.5);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void CUnload::Execute() {
 	Robot::shooter->ConvThrow();
+	Robot::shooter->Spin();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CUnload::IsFinished() {
-    return IsTimedOut() && Robot::shooter->IsLoaded();
+    return IsTimedOut();
 }
 
 // Called once after isFinished returns true
 void CUnload::End() {
 	Robot::shooter->StopConv();
+	Robot::shooter->StopSpin();
 }
 
 // Called when another command which requires one or more of the same

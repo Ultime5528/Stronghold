@@ -26,7 +26,7 @@ Tourner::Tourner(double angle): Command() {
 // Called just before this Command runs the first time
 void Tourner::Initialize() {
 	Robot::basePilotable->GyroReset();
-
+	Robot::basePilotable->SetSetpoint(m_angle);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,12 +37,13 @@ void Tourner::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool Tourner::IsFinished() {
-    return Robot::basePilotable->HasTurned();
+    return Robot::basePilotable->HasTurned(m_angle);
 }
 
 // Called once after isFinished returns true
 void Tourner::End() {
 	Robot::basePilotable->Stop();
+	DriverStation::ReportError("Fin Tourner");
 
 }
 

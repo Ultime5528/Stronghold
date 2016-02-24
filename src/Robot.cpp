@@ -95,9 +95,13 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
+
+
+	/*
 	SmartDashboard::PutBoolean("Switch shooter", Robot::shooter->IsLoaded());
 	SmartDashboard::PutBoolean("Switch intake", Robot::bouffeurAvant->IsPressed());
-	BouffeurAvant::potLoad = prefs->GetDouble("potLoad", 0.538);
+	BouffeurAvant::potLoad = prefs->GetDouble("potLoad", 0.538);*/
 }
 
 void Robot::TestPeriodic() {

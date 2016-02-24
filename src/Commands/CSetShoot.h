@@ -1,26 +1,23 @@
-#ifndef CSET_H
-#define CSET_h
+#ifndef CSETSHOOT_H
+#define CSETSHOOT_h
 
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
 
-class CSet: public Command {
+class CSetShoot: public Command {
 public:
 
 	enum Position {Shoot, Min};
-	bool m_another;
 
-	CSet(Position setpoint, bool another = true);
+	CSetShoot();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
 
-private:
-	Position m_setpoint;
 
 };
 

@@ -1,14 +1,13 @@
-#ifndef BWAITLOAD_H
-#define BWAITLOAD_H
+#ifndef BGETLOAD_H
+#define BGETLOAD_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class BWaitLoad: public Command
+class BGetLoad: public Command
 {
-
 public:
-	BWaitLoad();
+	BGetLoad();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

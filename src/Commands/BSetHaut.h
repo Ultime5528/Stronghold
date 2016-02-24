@@ -1,14 +1,17 @@
-#ifndef BWAITLOAD_H
-#define BWAITLOAD_H
+#ifndef BSETHAUT_H
+#define BSETHAUT_H
+
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class BWaitLoad: public Command
+class BSetHaut: public Command
 {
+private:
+	bool m_spin;
 
 public:
-	BWaitLoad();
+	BSetHaut(bool spin = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

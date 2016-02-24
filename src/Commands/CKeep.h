@@ -1,14 +1,13 @@
-#ifndef BWAITLOAD_H
-#define BWAITLOAD_H
+#ifndef CKEEP_H
+#define CKEEP_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class BWaitLoad: public Command
+class CKeep: public Command
 {
-
 public:
-	BWaitLoad();
+	CKeep();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

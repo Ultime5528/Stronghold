@@ -1,14 +1,17 @@
-#ifndef BWAITLOAD_H
-#define BWAITLOAD_H
+#ifndef CSETLOAD_H
+#define CSETLOAD_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class BWaitLoad: public Command
+class CSetLoad: public Command
 {
+private:
+
+	double m_init;
 
 public:
-	BWaitLoad();
+	CSetLoad();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
