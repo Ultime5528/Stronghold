@@ -24,18 +24,20 @@ PMonte::PMonte(): Command() {
 
 // Called just before this Command runs the first time
 void PMonte::Initialize() {
-	Robot::rouesPivot->PistonGaucheExtend();
-	Robot::rouesPivot->PistonDroitExtend();
+	SetTimeout(0.5);
+	//Robot::rouesPivot->PistonGaucheExtend();
+	//Robot::rouesPivot->PistonDroitExtend();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void PMonte::Execute() {
-
+	Robot::rouesPivot->PistonGaucheExtend();
+		Robot::rouesPivot->PistonDroitExtend();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool PMonte::IsFinished() {
-    return true;
+    return IsTimedOut();
 }
 
 // Called once after isFinished returns true

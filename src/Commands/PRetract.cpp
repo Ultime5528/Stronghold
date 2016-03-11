@@ -24,18 +24,18 @@ PRetract::PRetract(): Command() {
 
 // Called just before this Command runs the first time
 void PRetract::Initialize() {
-	Robot::rouesPivot->PistonGaucheRetract();
-	Robot::rouesPivot->PistonDroitRetract();
+	SetTimeout(0.25);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void PRetract::Execute() {
-
+	Robot::rouesPivot->PistonGaucheRetract();
+	Robot::rouesPivot->PistonDroitRetract();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool PRetract::IsFinished() {
-    return true;
+    return IsTimedOut();
 }
 
 // Called once after isFinished returns true
