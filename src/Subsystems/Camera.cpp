@@ -51,27 +51,22 @@ void Camera::GetInfo() {
 	Range Hue = {hueMin, hueMax};
 	Range Sat = {satMin, satMax};
 	Range Val = {valMin, valMax};
-	Range HueDeux = { 19,65 };
-	Range ValDeux = { 87,177};
-	Range SatDeux = {48,77 };
 
-	ParticleFilterCriteria2 criteria[3];
+	ParticleFilterCriteria2 criteria[1];
 	ParticleFilterOptions2 filterOptions = {0, 0, 1, 1};
 
 
 	criteria[0] = {IMAQ_MT_AREA, 0, 200, false, true};
-	criteria[1] = {IMAQ_MT_BOUNDING_RECT_HEIGHT, 0, 1000, false, false};
-	criteria[2] = {IMAQ_MT_BOUNDING_RECT_WIDTH,0 ,1000, false, false};
 
 	int nbParticles(0);
 
 	IMAQdxGrab(session, frame, true, NULL);
 	imaqScale(frame, frame, 2, 2, ScalingMode::IMAQ_SCALE_SMALLER, IMAQ_NO_RECT);
 	imaqColorThreshold(binFrame, frame, 1, IMAQ_HSV, &Hue, &Sat, &Val);
-	imaqColorThreshold(binFrame, frame, 1, IMAQ_HSV, &HueDeux, &SatDeux, &ValDeux);
-	imaqMorphology(binFrame, binFrame, IMAQ_DILATE, NULL);
-	imaqParticleFilter4(binFrame, binFrame, &criteria[0], 3, &filterOptions, NULL, &nbParticles);
 
+	imaqMorphology(binFrame, binFrame, IMAQ_DILATE, NULL);
+	imaqParticleFilter4(binFrame, binFrame, &criteria[0], 1, &filterOptions, NULL, NULL);
+	imaqCountParticles(binFrame, 1, &nbParticles);
 	CameraServer::GetInstance()->SetImage(binFrame);
 
 	int indexMax(0);
@@ -90,33 +85,39 @@ void Camera::GetInfo() {
 		}
 
 		double largeurParticule(0);
+		double hauteurParticule(0);
 		double hypotenuse(0);
+		double posXParticule(0);
 		int hauteurImage(0);
 		int largeurImage(0);
 
 		double centre(0);
 
+		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_BOUNDING_RECT_HEIGHT, &hauteurParticule);
 		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_BOUNDING_RECT_WIDTH, &largeurParticule);
 		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_X, &centre);
-
 		imaqGetImageSize(binFrame, &largeurImage, &hauteurImage);
 
+		double dHauteurParticule(hauteurParticule);
+		double dLargeurParticule(largeurParticule);
 		double dHauteurImage(hauteurImage);
 		double dLargeurImage(largeurImage);
 
 		hypotenuse = ((1*dLargeurImage) / (2*largeurParticule*0.5914));
-		distance = sqrt(pow(hypotenuse, 2) - 50.17361106388889);
-
+		distance = sqrt(pow(hypotenuse, 2.0) - 50.17361106388889);
 
 		centre = 2 * centre / dLargeurImage - 1;
 
-		angle = atan(centre * 0.5914) + 4;
-
-		SmartDashboard::PutNumber("Angle", angle);
-		SmartDashboard::PutNumber("Distance", distance);
-		SmartDashboard::PutNumber("Largeur particule", dLargeurImage);
+		angle = atan(centre * 0.449417)* 180 / acos(-1);
 
 
+		SmartDashboard::PutNumber("Distance Cible", distance);
+		SmartDashboard::PutNumber("Angle Cible", angle);
+		SmartDashboard::PutNumber("Aire Particule", aireMax);
+		SmartDashboard::PutNumber("Nombre Particules", nbParticles);
+		SmartDashboard::PutNumber("Hypothenuse", hypotenuse);
+		SmartDashboard::PutNumber("Largeur particule", largeurParticule);
+		SmartDashboard::PutNumber("Largeur image", largeurImage);
 	}
 
 	analysed = true;
