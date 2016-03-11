@@ -1,6 +1,7 @@
 #include "CSetShoot.h"
 #include "CMaintien.h"
 #include "CSpin.h"
+#include "Analyse.h"
 #include "../Subsystems/BouffeurAvant.h"
 
 CSetShoot::CSetShoot() : Command("CSetShoot")
@@ -34,7 +35,7 @@ void CSetShoot::End()
 {
 
 	Scheduler::GetInstance()->AddCommand(new CMaintien());
-	Scheduler::GetInstance()->AddCommand(new CSpin());
+	Scheduler::GetInstance()->AddCommand(new Analyse());
 
 }
 

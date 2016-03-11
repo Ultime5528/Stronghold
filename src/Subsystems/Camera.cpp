@@ -3,12 +3,12 @@
 #include "../Commands/AutomaticCapture.h"
 #include <cmath>
 
-int Camera::hueMin(0);
-int Camera::hueMax(255);
-int Camera::satMin(0);
+int Camera::hueMin(31);
+int Camera::hueMax(152);
+int Camera::satMin(99);
 int Camera::satMax(255);
-int Camera::valMin(0);
-int Camera::valMax(255);
+int Camera::valMin(44);
+int Camera::valMax(233);
 
 double Camera::distance(0);
 double Camera::angle(0);
@@ -89,16 +89,32 @@ void Camera::GetInfo() {
 			}
 		}
 
-		double hauteurParticule(0);
+		double largeurParticule(0);
 		double hypotenuse(0);
-		double distance(0);
 		int hauteurImage(0);
 		int largeurImage(0);
-		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_BOUNDING_RECT_HEIGHT, &hauteurParticule);
-		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_X, &hauteurParticule);
+
+		double centre(0);
+
+		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_BOUNDING_RECT_WIDTH, &largeurParticule);
+		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_X, &centre);
+
 		imaqGetImageSize(binFrame, &largeurImage, &hauteurImage);
-		hypotenuse = ((1*hauteurImage) / (2*hauteurParticule*0.182428349338192));
+
+		double dHauteurImage(hauteurImage);
+		double dLargeurImage(largeurImage);
+
+		hypotenuse = ((1*dLargeurImage) / (2*largeurParticule*0.5914));
 		distance = sqrt(pow(hypotenuse, 2) - 50.17361106388889);
+
+
+		centre = 2 * centre / dLargeurImage - 1;
+
+		angle = atan(centre * 0.5914) + 4;
+
+		SmartDashboard::PutNumber("Angle", angle);
+		SmartDashboard::PutNumber("Distance", distance);
+		SmartDashboard::PutNumber("Largeur particule", dLargeurImage);
 
 
 	}

@@ -1,4 +1,6 @@
 #include "Analyse.h"
+#include "Tourner.h"
+#include "../Subsystems/Camera.h"
 
 Analyse::Analyse() : Command("Analyse")
 {
@@ -29,7 +31,7 @@ bool Analyse::IsFinished()
 // Called once after isFinished returns true
 void Analyse::End()
 {
-
+	Scheduler::GetInstance()->AddCommand(new Tourner(Camera::angle, true));
 }
 
 // Called when another command which requires one or more of the same
