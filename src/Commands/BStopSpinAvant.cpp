@@ -1,41 +1,41 @@
-#include "AutomaticCapture.h"
+#include "BStopSpinAvant.h"
 
-AutomaticCapture::AutomaticCapture() : Command("AutomaticCapture")
+BStopSpinAvant::BStopSpinAvant() : Command("BStopSpinAvant")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
-	Requires (Robot::camera.get());
+	Requires(Robot::bouffeurAvant.get());
 }
+
 
 // Called just before this Command runs the first time
-void AutomaticCapture::Initialize()
+void BStopSpinAvant::Initialize()
 {
-
-
+	  DriverStation::ReportError("DÉbut de BStopSpinAvant");
+	Robot::bouffeurAvant->StopSpin();
 }
 
-
 // Called repeatedly when this Command is scheduled to run
-void AutomaticCapture::Execute()
+void BStopSpinAvant::Execute()
 {
-	Robot::camera->SendImage();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AutomaticCapture::IsFinished()
+bool BStopSpinAvant::IsFinished()
 {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true
-void AutomaticCapture::End()
+void BStopSpinAvant::End()
 {
-
+	  DriverStation::ReportError("Fin de BStopSpinAvant");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AutomaticCapture::Interrupted()
+void BStopSpinAvant::Interrupted()
 {
 	End();
 }

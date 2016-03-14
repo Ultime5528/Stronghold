@@ -1,41 +1,40 @@
-#include "AutomaticCapture.h"
+#include "BSetBas.h"
 
-AutomaticCapture::AutomaticCapture() : Command("AutomaticCapture")
+BSetBas::BSetBas()
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
-	Requires (Robot::camera.get());
+	Requires(Robot::bouffeurAvant.get());
 }
 
 // Called just before this Command runs the first time
-void AutomaticCapture::Initialize()
+void BSetBas::Initialize()
 {
-
-
+	SetTimeout(1.5);
 }
 
-
 // Called repeatedly when this Command is scheduled to run
-void AutomaticCapture::Execute()
+void BSetBas::Execute()
 {
-	Robot::camera->SendImage();
+	Robot::bouffeurAvant->Down();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AutomaticCapture::IsFinished()
+bool BSetBas::IsFinished()
 {
-	return false;
+	return IsTimedOut();
 }
 
 // Called once after isFinished returns true
-void AutomaticCapture::End()
+void BSetBas::End()
 {
-
+	Robot::bouffeurAvant->Stop();
+	Robot::bouffeurAvant->StopSpin();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AutomaticCapture::Interrupted()
+void BSetBas::Interrupted()
 {
 	End();
 }

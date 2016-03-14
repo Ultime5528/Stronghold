@@ -1,13 +1,17 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef BSETHAUT_H
+#define BSETHAUT_H
+
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
+class BSetHaut: public Command
 {
+private:
+	bool m_spin;
+
 public:
-	AutomaticCapture();
+	BSetHaut(bool spin = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

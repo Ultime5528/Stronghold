@@ -1,13 +1,13 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef ANALYSE_H
+#define ANALYSE_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
+class Analyse: public Command
 {
 public:
-	AutomaticCapture();
+	Analyse();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

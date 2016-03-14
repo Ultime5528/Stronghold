@@ -1,13 +1,14 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef BSTOPSPINAVANT_H
+#define BSTOPSPINAVANT_H
 
 #include "Commands/Subsystem.h"
+#include "WPILib.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
+class BStopSpinAvant: public Command
 {
 public:
-	AutomaticCapture();
+	BStopSpinAvant();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -1,13 +1,13 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef BGETLOAD_H
+#define BGETLOAD_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
+class BGetLoad: public Command
 {
 public:
-	AutomaticCapture();
+	BGetLoad();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

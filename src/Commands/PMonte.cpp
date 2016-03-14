@@ -24,7 +24,7 @@ PMonte::PMonte(): Command() {
 
 // Called just before this Command runs the first time
 void PMonte::Initialize() {
-	SetTimeout(2);
+	SetTimeout(0.5);
 	//Robot::rouesPivot->PistonGaucheExtend();
 	//Robot::rouesPivot->PistonDroitExtend();
 }

@@ -1,13 +1,14 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef BWAITLOAD_H
+#define BWAITLOAD_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
+class BWaitLoad: public Command
 {
+
 public:
-	AutomaticCapture();
+	BWaitLoad();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

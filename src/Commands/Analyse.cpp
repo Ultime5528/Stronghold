@@ -1,41 +1,42 @@
-#include "AutomaticCapture.h"
+#include "Analyse.h"
+#include "Tourner.h"
+#include "../Subsystems/Camera.h"
 
-AutomaticCapture::AutomaticCapture() : Command("AutomaticCapture")
+Analyse::Analyse() : Command("Analyse")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
-	Requires (Robot::camera.get());
+	Requires(Robot::camera.get());
 }
 
 // Called just before this Command runs the first time
-void AutomaticCapture::Initialize()
+void Analyse::Initialize()
 {
-
-
+	Robot::camera->StartAnalyse();
+	Robot::camera->GetInfo();
 }
 
-
 // Called repeatedly when this Command is scheduled to run
-void AutomaticCapture::Execute()
+void Analyse::Execute()
 {
-	Robot::camera->SendImage();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AutomaticCapture::IsFinished()
+bool Analyse::IsFinished()
 {
-	return false;
+	return Robot::camera->HasAnalysed();
 }
 
 // Called once after isFinished returns true
-void AutomaticCapture::End()
+void Analyse::End()
 {
-
+	Scheduler::GetInstance()->AddCommand(new Tourner(Camera::angle, true));
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void AutomaticCapture::Interrupted()
+void Analyse::Interrupted()
 {
-	End();
+
 }

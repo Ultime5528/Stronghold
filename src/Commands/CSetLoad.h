@@ -1,13 +1,17 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef CSETLOAD_H
+#define CSETLOAD_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
+class CSetLoad: public Command
 {
+private:
+
+	double m_init;
+
 public:
-	AutomaticCapture();
+	CSetLoad();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

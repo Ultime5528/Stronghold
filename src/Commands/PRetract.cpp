@@ -24,7 +24,7 @@ PRetract::PRetract(): Command() {
 
 // Called just before this Command runs the first time
 void PRetract::Initialize() {
-	SetTimeout(0.5);
+	SetTimeout(0.25);
 }
 
 // Called repeatedly when this Command is scheduled to run

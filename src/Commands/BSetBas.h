@@ -1,13 +1,13 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef BSETBAS_H
+#define BSETBAS_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
+class BSetBas: public Command
 {
 public:
-	AutomaticCapture();
+	BSetBas();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

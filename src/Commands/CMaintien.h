@@ -1,13 +1,13 @@
-#ifndef AUTOMATICCAPTURE_H
-#define AUTOMATICCAPTURE_H
+#ifndef CMAINTIEN_H
+#define CMAINTIEN_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class AutomaticCapture: public Command
-{
+class CMaintien: public Command {
+
 public:
-	AutomaticCapture();
+	CMaintien();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
