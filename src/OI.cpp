@@ -22,14 +22,11 @@
 #include "Commands/CShoot.h"
 #include "Commands/CUnload.h"
 #include "Commands/PMonte.h"
-#include "Commands/PMonteDroite.h"
-#include "Commands/PMonteGauche.h"
 #include "Commands/PRetract.h"
 #include "Commands/Pilotage.h"
 #include "Commands/Tourner.h"
 #include "Commands/Unload.h"
 #include "Commands/AutomaticCapture.h"
-#include "Commands/Shoot.h"
 #include "Commands/Load.h"
 #include "Commands/BSetBas.h"
 #include "Commands/BSetLoad.h"
@@ -67,8 +64,6 @@ OI::OI() {
     SmartDashboard::PutData("CShoot", new CShoot());
     SmartDashboard::PutData("CUnload", new CUnload());
     SmartDashboard::PutData("CLoad", new CLoad());
-    SmartDashboard::PutData("PMonteDroite", new PMonteDroite());
-    SmartDashboard::PutData("PMonteGauche", new PMonteGauche());
     SmartDashboard::PutData("Analyse", new Analyse());
     SmartDashboard::PutData(Scheduler::GetInstance());
 
