@@ -37,7 +37,8 @@ BasePilotable::BasePilotable() : Subsystem("BasePilotable") {
     m_isGoingRight = false;
     m_setpoint = 0.0;
 
-   gyro->Calibrate();
+    gyro->Calibrate();
+    gyro->Reset();
 }
 
 void BasePilotable::InitDefaultCommand() {
@@ -58,6 +59,9 @@ void BasePilotable::ArcadeDrive(){
 
 }
 
+void BasePilotable::ArcadeDrive(double avancer, double rotation) {
+	drive->ArcadeDrive(avancer, rotation);
+}
 
 void BasePilotable::Stop(){
 	m_turning = false;
@@ -135,3 +139,5 @@ double BasePilotable::GetGyroAngle() {
 double BasePilotable::GetEncoGauche() {
 	return encoGauche->GetDistance();
 }
+
+

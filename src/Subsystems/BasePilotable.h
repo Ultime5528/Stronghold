@@ -43,6 +43,7 @@ public:
 	BasePilotable();
 	void InitDefaultCommand();
 	void ArcadeDrive();
+	void ArcadeDrive(double avancer, double rotation);
 	void Stop();
 	void Avancer();
 	void GyroReset();

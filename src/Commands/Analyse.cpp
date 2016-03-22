@@ -31,7 +31,7 @@ bool Analyse::IsFinished()
 // Called once after isFinished returns true
 void Analyse::End()
 {
-	Scheduler::GetInstance()->AddCommand(new Tourner(Camera::angle, true));
+	//Scheduler::GetInstance()->AddCommand(new Tourner(Camera::angle, true));
 }
 
 // Called when another command which requires one or more of the same

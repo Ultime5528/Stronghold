@@ -16,6 +16,13 @@ private:
 
 	bool analysed;
 
+	double FOV_X = 23.99;
+	double FOV_Y = 18.46;
+	double CAMERA_ANGLE = 30.0;
+	double CAMERA_HEIGHT = 0.75;
+	double CAMERA_OFFSET = -0.18;
+	double TARGET_HEIGHT = 2.286;
+
 public:
 
 	static int hueMin;
@@ -24,9 +31,10 @@ public:
 	static int satMax;
 	static int valMin;
 	static int valMax;
+	static int aireMin;
 
 	static double distance;
-	static double angle;
+	static double ecart;
 
 	Camera();
 	void InitDefaultCommand();

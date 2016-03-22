@@ -75,7 +75,7 @@ void RobotMap::init() {
 
     basePilotableencoGauche.reset(new Encoder(0, 1, false, Encoder::k4X));
     lw->AddSensor("BasePilotable", "encoGauche", basePilotableencoGauche);
-    basePilotableencoGauche->SetDistancePerPulse(1.0);
+    basePilotableencoGauche->SetDistancePerPulse(0.00023057);
     basePilotableencoGauche->SetPIDSourceType(PIDSourceType::kRate);
 
     /*basePilotableencoDroite.reset(new Encoder(2, 3, false, Encoder::k4X));
@@ -92,7 +92,7 @@ void RobotMap::init() {
     lw->AddActuator("Shooter", "Convoyeur", std::static_pointer_cast<Talon>(shooterConv));
 
     shooterSpin.reset(new VictorSP(7));
-    lw->AddActuator("Shooter", "Monte", std::static_pointer_cast<VictorSP>(shooterSpin));
+    lw->AddActuator("Shooter", "Spin", std::static_pointer_cast<VictorSP>(shooterSpin));
 /*
     catapultepot.reset(new AnalogPotentiometer(0, 1.0, 0.0));
     lw->AddSensor("Catapulte", "pot", catapultepot);
