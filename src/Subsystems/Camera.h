@@ -26,7 +26,16 @@ public:
 	static int valMax;
 
 	static double distance;
-	static double angle;
+	static double angleX;
+	static double angleY;
+
+	int FOV_X=23.99;
+	int FOV_Y=18.46;
+	int CAMERA_ANGLE=30;
+	int CAMERA_HEIGHT=.75;
+	int CAMERA_OFFSET=.18;//Simon est cho aussi
+	int TARGET_HEIGHT=2.286;		//Émile est chaud au boute -Younes 2k16
+
 
 	Camera();
 	void InitDefaultCommand();
