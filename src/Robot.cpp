@@ -85,6 +85,10 @@ void Robot::TeleopInit() {
 	Viser::move = prefs->GetDouble("move", 0.5);
 	Viser::rotation = prefs->GetDouble("rotation", 0.5);
 
+	Viser::distance = prefs->GetDouble("distance", 1.2);
+	Viser::offsetX = prefs->GetDouble("offsetX", 0.1);
+	Viser::distanceOffset = prefs->GetDouble("distanceOffset", 0.1);
+
 	SmartDashboard::PutNumber("AireMin", Camera::aireMin);
 
 
