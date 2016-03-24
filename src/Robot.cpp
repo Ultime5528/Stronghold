@@ -26,16 +26,16 @@ std::shared_ptr<Shooter> Robot::shooter;
 void Robot::RobotInit() {
 	RobotMap::init();
 
-    //catapulte.reset(new Catapulte());
-    //bouffeurAvant.reset(new BouffeurAvant());
-    //rouesPivot.reset(new RouesPivot());
+    catapulte.reset(new Catapulte());
+    bouffeurAvant.reset(new BouffeurAvant());
+    rouesPivot.reset(new RouesPivot());
     basePilotable.reset(new BasePilotable());
 
 	oi.reset(new OI());
 	camera.reset(new Camera());
 	shooter.reset(new Shooter());
 
-	//autonomousCommand.reset(new Autonomous());
+	autonomousCommand.reset(new Autonomous());
   }
 
 /**
@@ -43,7 +43,9 @@ void Robot::RobotInit() {
  * You can use it to reset subsystems before shutting down.
  */
 void Robot::DisabledInit(){
-
+	Scheduler::GetInstance()->RemoveAll();
+	Robot::shooter->StopSpin();
+	Robot::shooter->StopConv();
 }
 
 void Robot::DisabledPeriodic() {
@@ -91,14 +93,14 @@ void Robot::TeleopInit() {
 
 	SmartDashboard::PutNumber("AireMin", Camera::aireMin);
 
-
+	Robot::basePilotable->GyroReset();
 
 }
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
-	SmartDashboard::PutNumber("Enco Gauche", Robot::basePilotable->GetEncoGauche());
+	//SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
+	//SmartDashboard::PutNumber("Enco Gauche", Robot::basePilotable->GetEncoGauche());
 
 	/*
 	SmartDashboard::PutBoolean("Switch shooter", Robot::shooter->IsLoaded());

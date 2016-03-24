@@ -24,6 +24,7 @@ public:
 private :
 	bool m_shoot;
 	bool m_continue = true;
+	bool m_rotate = false;
 };
 
 #endif

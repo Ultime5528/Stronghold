@@ -1,5 +1,7 @@
 #include "Viser.h"
 #include "Shoot.h"
+#include "CSpin.h"
+#include "CShoot.h"
 #include "../Subsystems/Camera.h"
 #include "../Robot.h"
 #include <cmath>
@@ -23,6 +25,7 @@ Viser::Viser(bool shoot) : Command("Viser")
 void Viser::Initialize()
 {
 	Robot::camera->GetInfo();
+	m_rotate = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -30,24 +33,29 @@ void Viser::Execute()
 {
 	Robot::camera->GetInfo();
 
-	double rotationValue(0);
-	double moveValue(0);
 
 	m_continue = false;
 
-	if(std::abs(Camera::distance - distance) > distanceOffset) {
-		moveValue = (Camera::distance - distance > 0 ? -1 : 1) * move;
+	if(std::abs(Camera::distance - distance) > distanceOffset && !m_rotate) {
+		Robot::basePilotable->ArcadeDrive(((Camera::distance - distance) > 0 ? -1 : 1) * move, 0.0);
 		m_continue = true;
 	}
-
-	if(std::abs(Camera::ecart) > offsetX) {
-		rotationValue = (Camera::ecart > 0 ? 1 : -1) * rotation;
-		m_continue = true;
+	else if(!m_rotate) {
+		DriverStation::ReportError("Début tourne");
+		m_rotate = true;
+		Scheduler::GetInstance()->AddCommand(new CSpin(false));
 	}
 
-
-	Robot::basePilotable->ArcadeDrive(moveValue, rotationValue);
-
+	if(std::abs(Camera::ecart) > offsetX && m_rotate) {
+		Robot::basePilotable->ArcadeDrive(0.0, (Camera::ecart > 0 ? 1 : -1) * rotation);
+		m_continue = true;
+	}
+	else if(m_rotate) {
+		DriverStation::ReportError("Fin tourne");
+		m_rotate = false;
+		Scheduler::GetInstance()->AddCommand(new CShoot(false));
+		Robot::basePilotable->ArcadeDrive(0.0, 0.0);
+	}
 
 }
 
@@ -60,7 +68,7 @@ bool Viser::IsFinished()
 // Called once after isFinished returns true
 void Viser::End()
 {
-
+	DriverStation::ReportError("Fin viser");
 }
 
 // Called when another command which requires one or more of the same
