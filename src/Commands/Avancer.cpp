@@ -33,8 +33,10 @@ void Avancer::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Avancer::Execute() {
-	Robot::basePilotable->Avancer();
-
+	if (m_distance > 0)
+		Robot::basePilotable->ArcadeDrive(-0.7,0);
+	else if(m_distance <0)
+		Robot::basePilotable->ArcadeDrive(0.7,0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -46,8 +48,6 @@ bool Avancer::IsFinished() {
 // Called once after isFinished returns true
 void Avancer::End() {
 	Robot::basePilotable->Stop();
-	if (m_turn)
-	Scheduler::GetInstance()->AddCommand(new Tourner(45.0, true));
 }
 
 // Called when another command which requires one or more of the same

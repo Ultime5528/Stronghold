@@ -99,7 +99,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	//SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
+	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
 	//SmartDashboard::PutNumber("Enco Gauche", Robot::basePilotable->GetEncoGauche());
 
 	/*
