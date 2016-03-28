@@ -34,6 +34,7 @@ void CShoot::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void CShoot::Execute() {
+	Robot::shooter->Spin();
 	Robot::shooter->ConvThrow();
 }
 

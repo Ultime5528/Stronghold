@@ -91,6 +91,9 @@ void Robot::TeleopInit() {
 	Viser::offsetX = prefs->GetDouble("offsetX", 0.1);
 	Viser::distanceOffset = prefs->GetDouble("distanceOffset", 0.1);
 
+	Camera::CAMERA_OFFSET = prefs->GetDouble("ecart", -0.18);
+
+
 	SmartDashboard::PutNumber("AireMin", Camera::aireMin);
 
 	Robot::basePilotable->GyroReset();

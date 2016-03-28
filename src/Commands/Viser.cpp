@@ -26,6 +26,7 @@ void Viser::Initialize()
 {
 	Robot::camera->GetInfo();
 	m_rotate = false;
+
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,7 +38,14 @@ void Viser::Execute()
 	m_continue = false;
 
 	if(std::abs(Camera::distance - distance) > distanceOffset && !m_rotate) {
-		Robot::basePilotable->ArcadeDrive(((Camera::distance - distance) > 0 ? -1 : 1) * move, 0.0);
+
+		double tourner = 0;
+
+		if(std::abs(Camera::ecart) > offsetX) {
+				tourner = (Camera::ecart > 0 ? 1 : -1) * rotation;
+		}
+
+		Robot::basePilotable->ArcadeDrive(((Camera::distance - distance) > 0 ? -1 : 1) * move, tourner);
 		m_continue = true;
 	}
 	else if(!m_rotate) {
@@ -51,6 +59,8 @@ void Viser::Execute()
 		m_continue = true;
 	}
 	else if(m_rotate) {
+
+
 		DriverStation::ReportError("Fin tourne");
 		m_rotate = false;
 		Scheduler::GetInstance()->AddCommand(new CShoot(false));

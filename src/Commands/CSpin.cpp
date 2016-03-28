@@ -33,7 +33,7 @@ void CSpin::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void CSpin::Execute() {
-	//Robot::shooter->Spin();
+	Robot::shooter->Spin();
 
 }
 

@@ -13,6 +13,7 @@ int Camera::aireMin(200);
 
 double Camera::distance(0);
 double Camera::ecart(0);
+double Camera::CAMERA_OFFSET(0);
 
 Camera::Camera() :
 		Subsystem("Camera")

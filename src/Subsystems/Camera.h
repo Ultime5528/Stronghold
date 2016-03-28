@@ -20,7 +20,7 @@ private:
 	double FOV_Y = 18.46;
 	double CAMERA_ANGLE = 30.0;
 	double CAMERA_HEIGHT = 0.75;
-	double CAMERA_OFFSET = -0.18;
+
 	double TARGET_HEIGHT = 2.286;
 
 public:
@@ -35,6 +35,8 @@ public:
 
 	static double distance;
 	static double ecart;
+
+	static double CAMERA_OFFSET;
 
 	Camera();
 	void InitDefaultCommand();
