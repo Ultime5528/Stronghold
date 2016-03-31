@@ -95,10 +95,12 @@ void Catapulte::StopMonte() {
 void Catapulte::Maintien() {
 	if(pot->Get() > potMin)
 		monte->Set(0.08);
+	else
+		monte->Set(-0.15);
 }
 
 void Catapulte::MaintienLoad() {
-	monte->Set(0.2);
+	monte->Set(0.3);
 }
 
 bool Catapulte::HasReached() {

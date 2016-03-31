@@ -23,7 +23,7 @@ void Shooter::StopConv() {
 
 void Shooter::StopSpin(){
 	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
-	spin->Set(0);
+	std::static_pointer_cast<VictorSP>(spin)->StopMotor();
 
 }
 

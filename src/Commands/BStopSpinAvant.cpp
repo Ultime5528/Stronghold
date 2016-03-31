@@ -11,7 +11,6 @@ BStopSpinAvant::BStopSpinAvant() : Command("BStopSpinAvant")
 // Called just before this Command runs the first time
 void BStopSpinAvant::Initialize()
 {
-	  DriverStation::ReportError("DÉbut de BStopSpinAvant");
 	Robot::bouffeurAvant->StopSpin();
 }
 
@@ -30,12 +29,12 @@ bool BStopSpinAvant::IsFinished()
 // Called once after isFinished returns true
 void BStopSpinAvant::End()
 {
-	  DriverStation::ReportError("Fin de BStopSpinAvant");
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void BStopSpinAvant::Interrupted()
 {
-	End();
+
 }

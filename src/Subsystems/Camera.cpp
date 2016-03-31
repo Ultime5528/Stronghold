@@ -21,7 +21,7 @@ double Camera::CAMERA_OFFSET(0);
 Camera::Camera() :
 		Subsystem("Camera")
 {
-	cam = RobotMap::cameraCam;
+	//cam = RobotMap::cameraCam;
 
 	IMAQdxOpenCamera("cam0", IMAQdxCameraControlModeController, &session);
 	//Wait(0.5);
@@ -30,8 +30,6 @@ Camera::Camera() :
 	IMAQdxStartAcquisition(session);
 	//Wait(0.5);
 	frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
-
-	analysed = false;
 
 }
 
@@ -48,8 +46,6 @@ void Camera::SendImage() {
 
 void Camera::GetInfo() {
 
-	analysed = false;
-
 	Image* binFrame;
 
 	binFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
@@ -59,10 +55,11 @@ void Camera::GetInfo() {
 	Range Val = {valMin, valMax};
 
 	ParticleFilterCriteria2 criteria[1];
-	ParticleFilterOptions2 filterOptions = {0, 0, 1, 1};
+
+	//ParticleFilterOptions2 filterOptions = {0, 0, 1, 1};
 
 
-	criteria[0] = {IMAQ_MT_AREA, 0, aireMin, false, true};
+	criteria[0] = {IMAQ_MT_AREA, 0, (float) aireMin, false, true};
 
 
 	int nbParticles(0);
@@ -141,17 +138,5 @@ void Camera::GetInfo() {
 		SmartDashboard::PutNumber("Largeur image", largeurImage);
 	}
 
-	analysed = true;
 
-}
-
-void Camera::StartAnalyse() {
-
-	analysed = false;
-
-}
-
-bool Camera::HasAnalysed() {
-
-	return analysed;
 }

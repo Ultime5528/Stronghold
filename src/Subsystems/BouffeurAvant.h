@@ -51,12 +51,14 @@ public:
 	void Spin();
 	void SpinLent();
 	void StopSpin();
+	/*
 	void SetSetpoint(double setpoint);
 	void SetSetpoint (Position setpoint);
 	void Reach();
 	void ReachMaintien();
 	void Maintien();
 	bool HasReached();
+	*/
 	bool IsPressed();
 	double GetPot();
 

@@ -11,19 +11,20 @@ CSetBas::CSetBas() : Command("CSetBas")
 // Called just before this Command runs the first time
 void CSetBas::Initialize()
 {
-	Robot::catapulte->SetAtMin();
+	//Robot::catapulte->SetAtMin();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void CSetBas::Execute()
 {
-	Robot::catapulte->Reach();
+	Robot::catapulte->Down();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool CSetBas::IsFinished()
 {
-	return Robot::catapulte->HasReached();
+	//return Robot::catapulte->HasReached();
+	return Robot::catapulte->GetPot() >= Catapulte::potMax;
 }
 
 // Called once after isFinished returns true
@@ -36,5 +37,5 @@ void CSetBas::End()
 // subsystems is scheduled to run
 void CSetBas::Interrupted()
 {
-
+	End();
 }

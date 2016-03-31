@@ -14,7 +14,6 @@ private:
 	IMAQdxSession session;
 	Image* frame;
 
-	bool analysed;
 
 	double FOV_X = 23.99;
 	double FOV_Y = 18.46;
@@ -45,8 +44,7 @@ public:
 	void InitDefaultCommand();
 	void SendImage();
 	void GetInfo();
-	void StartAnalyse();
-	bool HasAnalysed();
+
 };
 
 

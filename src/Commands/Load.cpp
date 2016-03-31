@@ -1,22 +1,19 @@
 #include "Load.h"
-#include "BWaitLoad.h"
 #include "CLoad.h"
-#include "BSpinAvant.h"
-#include "BStopSpinAvant.h"
 #include "BSetHaut.h"
 #include "CSetBas.h"
+#include "BSetBas.h"
 
 
 Load::Load()
 {
 
-	//AddParallel(new CSet(CSet::Position::Min, true)); //catapulte
-	//AddSequential(new BSpinAvant()); //bouffeur spin
-	//AddSequential(new BSetAvant(BouffeurAvant::Position::Load)); //bouffeur position
-	//AddSequential(new BWaitLoad()); //bouffeur
-	AddParallel(new BSetHaut(true)); // bouffeur position
-	AddSequential(new CLoad());					//shooter
-	AddSequential(new CSetBas());
-	//AddSequential(new BStopSpinAvant());		//bouffeur spin
+	AddSequential(new CSetLoad()); // Monte de peu le shooter
+	AddParallel(new CKeep()); //Le maintien toujours
+
+	AddParallel(new BSetHaut(true)); // monte avec TRUE pour spin lent
+	AddSequential(new CLoad());		//Attends que la switch soit vraie
+	AddParallel(new BSetBas());		//Redescends, stop spin
+	AddSequential(new CSetBas());	// Redescends le shooter
 
 }

@@ -1,42 +1,38 @@
-#include "Analyse.h"
-#include "Tourner.h"
-#include "../Subsystems/Camera.h"
+#include "Reset.h"
 
-Analyse::Analyse() : Command("Analyse")
+Reset::Reset()
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
-	Requires(Robot::camera.get());
 }
 
 // Called just before this Command runs the first time
-void Analyse::Initialize()
+void Reset::Initialize()
 {
-	Robot::camera->StartAnalyse();
-	Robot::camera->GetInfo();
+	Scheduler::GetInstance()->RemoveAll();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Analyse::Execute()
+void Reset::Execute()
 {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Analyse::IsFinished()
+bool Reset::IsFinished()
 {
-	return Robot::camera->HasAnalysed();
+	return true;
 }
 
 // Called once after isFinished returns true
-void Analyse::End()
+void Reset::End()
 {
-	//Scheduler::GetInstance()->AddCommand(new Tourner(Camera::angle, true));
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Analyse::Interrupted()
+void Reset::Interrupted()
 {
 
 }

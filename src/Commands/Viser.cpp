@@ -13,12 +13,13 @@ double Viser::rotation(0.4);
 double Viser::move(0.5);
 
 
-Viser::Viser(bool shoot) : Command("Viser")
+Viser::Viser(bool shoot) : Command("Viser")//, timer()
 {
 	Requires(Robot::basePilotable.get());
 	Requires(Robot::camera.get());
 
 	m_shoot = shoot;
+
 }
 
 // Called just before this Command runs the first time
@@ -26,7 +27,9 @@ void Viser::Initialize()
 {
 	Robot::camera->GetInfo();
 	m_rotate = false;
+	m_firstTime = true;
 
+	//timer.Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -51,7 +54,9 @@ void Viser::Execute()
 	else if(!m_rotate) {
 		DriverStation::ReportError("Début tourne");
 		m_rotate = true;
-		Scheduler::GetInstance()->AddCommand(new CSpin(false));
+
+		if(!m_firstTime)
+			Scheduler::GetInstance()->AddCommand(new CSpin(false));
 	}
 
 	if(std::abs(Camera::ecart) > offsetX && m_rotate) {
@@ -60,13 +65,71 @@ void Viser::Execute()
 	}
 	else if(m_rotate) {
 
+		if(m_firstTime) {
+			DriverStation::ReportError("Fin première fois Viser");
+			m_firstTime = false;
+			m_rotate = false;
+			m_continue = true;
+		}
+		else {
+			DriverStation::ReportError("Fin tourne");
+			m_rotate = false;
+			Scheduler::GetInstance()->AddCommand(new CShoot(false));
+			Robot::basePilotable->ArcadeDrive(0.0, 0.0);
+		}
 
-		DriverStation::ReportError("Fin tourne");
-		m_rotate = false;
-		Scheduler::GetInstance()->AddCommand(new CShoot(false));
-		Robot::basePilotable->ArcadeDrive(0.0, 0.0);
 	}
 
+	//Version avec timer
+/*
+	Robot::camera->GetInfo();
+
+
+		m_continue = false;
+
+		if(std::abs(Camera::distance - distance) > distanceOffset && !m_rotate) {
+
+			double tourner = 0;
+
+			if(std::abs(Camera::ecart) > offsetX) {
+					tourner = (Camera::ecart > 0 ? 1 : -1) * rotation;
+			}
+
+			Robot::basePilotable->ArcadeDrive(((Camera::distance - distance) > 0 ? -1 : 1) * move, tourner);
+			m_continue = true;
+		}
+		else if(!m_rotate) {
+			DriverStation::ReportError("Début tourne");
+			m_rotate = true;
+
+			if(!m_firstTime)  {
+				Scheduler::GetInstance()->AddCommand(new CSpin(false));
+				timer.Reset();
+				timer.Start();
+			}
+
+		}
+
+		if(std::abs(Camera::ecart) > offsetX && m_rotate) {
+			Robot::basePilotable->ArcadeDrive(0.0, (Camera::ecart > 0 ? 1 : -1) * rotation);
+			m_continue = true;
+		}
+		else if(m_rotate && m_firstTime) {
+
+				DriverStation::ReportError("Fin première fois Viser");
+				m_firstTime = false;
+				m_rotate = false;
+				m_continue = true;
+		}
+
+		else if(m_rotate && timer.Get() > 1.0){
+			DriverStation::ReportError("Fin tourne");
+			m_rotate = false;
+			Scheduler::GetInstance()->AddCommand(new CShoot(false));
+			Robot::basePilotable->ArcadeDrive(0.0, 0.0);
+		}
+
+*/
 }
 
 // Make this return true when this Command no longer needs to run execute()

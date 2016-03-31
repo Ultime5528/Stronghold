@@ -44,7 +44,7 @@ void BouffeurAvant::InitDefaultCommand() {
 }
 
 void BouffeurAvant::Up() {
-
+	/*
 	double valeur(pot->Get());
 
 	if (valeur >= potHaut) {
@@ -54,11 +54,13 @@ void BouffeurAvant::Up() {
 		else
 			monte->Set(0.2);
 	}
+	*/
 
+	monte->Set(0.4);
 }
 
 void BouffeurAvant::Down() {
-
+/*
 	double valeur(pot->Get());
 
 	if (valeur <= potBas) {
@@ -71,6 +73,8 @@ void BouffeurAvant::Down() {
 			monte->Set(-0.2);
 		}
 	}
+	*/
+	monte->Set(-0.2);
 }
 
 
@@ -98,7 +102,7 @@ void BouffeurAvant::StopSpin() {
 	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
 	std::static_pointer_cast<VictorSP>(spin)->StopMotor();
 }
-
+/*
 void BouffeurAvant::Reach() {
 
 	if(!HasReached()) {
@@ -184,6 +188,8 @@ bool BouffeurAvant::HasReached() {
 
 
 }
+
+*/
 
 bool BouffeurAvant::IsPressed() {
 

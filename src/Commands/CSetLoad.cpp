@@ -23,15 +23,15 @@ void CSetLoad::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool CSetLoad::IsFinished()
 {
-	return (Robot::catapulte->GetPot() < (m_init - 0.04) );
+	return (Robot::catapulte->GetPot() < (m_init - 0.025) );
 }
 
 // Called once after isFinished returns true
 void CSetLoad::End()
 {
 	Robot::catapulte->StopMonte();
-	Scheduler::GetInstance()->AddCommand(new CKeep());
-	Scheduler::GetInstance()->AddCommand(new Load());
+	//Scheduler::GetInstance()->AddCommand(new CKeep());
+	//Scheduler::GetInstance()->AddCommand(new Load());
 }
 
 // Called when another command which requires one or more of the same

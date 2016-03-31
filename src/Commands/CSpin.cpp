@@ -28,7 +28,6 @@ CSpin::CSpin(bool shoot): Command("CSpin") {
 void CSpin::Initialize() {
 	SetTimeout(1.0);
 	Robot::shooter->Spin();
-	DriverStation::ReportError("Spin!");
 }
 
 // Called repeatedly when this Command is scheduled to run

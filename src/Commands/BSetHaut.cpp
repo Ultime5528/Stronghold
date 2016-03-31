@@ -15,6 +15,8 @@ void BSetHaut::Initialize()
 
 	if(m_spin)
 		Robot::bouffeurAvant->SpinLent();
+	else
+		Robot::bouffeurAvant->StopSpin();
 }
 
 // Called repeatedly when this Command is scheduled to run
