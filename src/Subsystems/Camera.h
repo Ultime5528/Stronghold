@@ -31,12 +31,15 @@ public:
 	static int satMax;
 	static int valMin;
 	static int valMax;
+
 	static int aireMin;
 
 	static double distance;
+
 	static double ecart;
 
 	static double CAMERA_OFFSET;
+
 
 	Camera();
 	void InitDefaultCommand();

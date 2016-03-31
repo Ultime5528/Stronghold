@@ -12,8 +12,11 @@ int Camera::valMax(233);
 int Camera::aireMin(200);
 
 double Camera::distance(0);
+
 double Camera::ecart(0);
+
 double Camera::CAMERA_OFFSET(0);
+
 
 Camera::Camera() :
 		Subsystem("Camera")
@@ -61,15 +64,18 @@ void Camera::GetInfo() {
 
 	criteria[0] = {IMAQ_MT_AREA, 0, aireMin, false, true};
 
+
 	int nbParticles(0);
 
 	IMAQdxGrab(session, frame, true, NULL);
 	imaqScale(frame, frame, 2, 2, ScalingMode::IMAQ_SCALE_SMALLER, IMAQ_NO_RECT);
 	imaqColorThreshold(binFrame, frame, 255, IMAQ_HSV, &Hue, &Sat, &Val);
 	imaqMorphology(binFrame, binFrame, IMAQ_DILATE, NULL);
+
 	//imaqParticleFilter4(binFrame, binFrame, &criteria[0], 1, &filterOptions, NULL, &nbParticles);
 
 	imaqCountParticles(binFrame, 0, &nbParticles);
+
 
 	CameraServer::GetInstance()->SetImage(binFrame);
 
@@ -101,6 +107,7 @@ void Camera::GetInfo() {
 		double angleY(0);
 		double offset(0);
 
+
 		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_X, &centreX);
 		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_Y, &centreY);
 
@@ -125,6 +132,7 @@ void Camera::GetInfo() {
 		ecart = offset - CAMERA_OFFSET;
 
 
+
 		SmartDashboard::PutNumber("Distance Cible", distance);
 		SmartDashboard::PutNumber("Angle Cible", ecart);
 		SmartDashboard::PutNumber("Aire Particule", aireMax);
@@ -136,7 +144,6 @@ void Camera::GetInfo() {
 	analysed = true;
 
 }
-
 
 void Camera::StartAnalyse() {
 
