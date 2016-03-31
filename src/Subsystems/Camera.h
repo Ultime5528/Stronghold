@@ -16,6 +16,13 @@ private:
 
 	bool analysed;
 
+	double FOV_X = 23.99;
+	double FOV_Y = 18.46;
+	double CAMERA_ANGLE = 30.0;
+	double CAMERA_HEIGHT = 0.75;
+
+	double TARGET_HEIGHT = 2.286;
+
 public:
 
 	static int hueMin;
@@ -25,16 +32,13 @@ public:
 	static int valMin;
 	static int valMax;
 
-	static double distance;
-	static double angleX;
-	static double angleY;
+	static int aireMin;
 
-	int FOV_X=23.99;
-	int FOV_Y=18.46;
-	int CAMERA_ANGLE=30;
-	int CAMERA_HEIGHT=.75;
-	int CAMERA_OFFSET=.18;//Simon est cho aussi
-	int TARGET_HEIGHT=2.286;		//Émile est chaud au boute -Younes 2k16
+	static double distance;
+
+	static double ecart;
+
+	static double CAMERA_OFFSET;
 
 
 	Camera();

@@ -43,27 +43,27 @@ void RobotMap::init() {
 
     catapulteMonte.reset(new VictorSP(8));
     lw->AddActuator("Catapulte", "Monte", std::static_pointer_cast<VictorSP>(catapulteMonte));
-    
+
     bouffeurAvantspin.reset(new VictorSP(5));
     lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<VictorSP>(bouffeurAvantspin));
     
     bouffeurAvantmonte.reset(new VictorSP(4));
     lw->AddActuator("BouffeurAvant", "monte", std::static_pointer_cast<VictorSP>(bouffeurAvantmonte));
-    
+
     bouffeurAvantpot.reset(new AnalogPotentiometer(1, 1.0, 0.0));
     lw->AddSensor("BouffeurAvant", "pot", bouffeurAvantpot);
-    
+
     rouesPivotpistonGauche.reset(new DoubleSolenoid(0, 1));
     LiveWindow::GetInstance()->AddActuator("RouesPivot", "Piston gauche", rouesPivotpistonGauche);
-    
+
     rouesPivotpistonDroit.reset(new DoubleSolenoid(2, 3));
     LiveWindow::GetInstance()->AddActuator("RouesPivot", "Piston droit", rouesPivotpistonDroit);
+
+    basePilotabledriveGauche.reset(new Talon(0));
+    lw->AddActuator("BasePilotable", "driveGauche", std::static_pointer_cast<Talon>(basePilotabledriveGauche));
     
-    basePilotabledriveGauche.reset(new VictorSP(0));
-    lw->AddActuator("BasePilotable", "driveGauche", std::static_pointer_cast<VictorSP>(basePilotabledriveGauche));
-    
-    basePilotabledriveDroite.reset(new VictorSP(1));
-    lw->AddActuator("BasePilotable", "driveDroite", std::static_pointer_cast<VictorSP>(basePilotabledriveDroite));
+    basePilotabledriveDroite.reset(new Talon(1));
+    lw->AddActuator("BasePilotable", "driveDroite", std::static_pointer_cast<Talon>(basePilotabledriveDroite));
     
     basePilotableDrive.reset(new RobotDrive(basePilotabledriveGauche, basePilotabledriveDroite));
     basePilotableDrive->SetInvertedMotor(RobotDrive::MotorType::kRearLeftMotor, true);
@@ -75,7 +75,7 @@ void RobotMap::init() {
 
     basePilotableencoGauche.reset(new Encoder(0, 1, false, Encoder::k4X));
     lw->AddSensor("BasePilotable", "encoGauche", basePilotableencoGauche);
-    basePilotableencoGauche->SetDistancePerPulse(1.0);
+    basePilotableencoGauche->SetDistancePerPulse(0.00023057);
     basePilotableencoGauche->SetPIDSourceType(PIDSourceType::kRate);
 
     basePilotableencoDroite.reset(new Encoder(2, 3, false, Encoder::k4X));
@@ -88,11 +88,11 @@ void RobotMap::init() {
     lw->AddSensor("BasePilotable", "Gyro", basePilotableGyro);
 
 
-    shooterConv.reset(new VictorSP(6));
-    lw->AddActuator("Shooter", "Convoyeur", std::static_pointer_cast<VictorSP>(shooterConv));
+    shooterConv.reset(new Talon(6));
+    lw->AddActuator("Shooter", "Convoyeur", std::static_pointer_cast<Talon>(shooterConv));
 
     shooterSpin.reset(new VictorSP(7));
-    lw->AddActuator("Shooter", "Monte", std::static_pointer_cast<VictorSP>(shooterSpin));
+    lw->AddActuator("Shooter", "Spin", std::static_pointer_cast<VictorSP>(shooterSpin));
 
     catapultepot.reset(new AnalogPotentiometer(0, 1.0, 0.0));
     lw->AddSensor("Catapulte", "pot", catapultepot);
@@ -104,5 +104,6 @@ void RobotMap::init() {
 
     bouffeurAvantlimit.reset(new DigitalInput(5));
     lw->AddSensor("BouffeurAvant", "Switch", bouffeurAvantlimit);
+
 
 }

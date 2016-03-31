@@ -26,7 +26,7 @@ CLoad::CLoad(): Command("CLoad") {
 
 // Called just before this Command runs the first time
 void CLoad::Initialize() {
-	DriverStation::ReportError("Entree CLoad");
+	SetTimeout(5);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,7 +37,7 @@ void CLoad::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool CLoad::IsFinished() {
-    return Robot::shooter->IsLoaded();
+    return Robot::shooter->IsLoaded() || IsTimedOut();
 }
 
 // Called once after isFinished returns true

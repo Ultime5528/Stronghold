@@ -22,8 +22,9 @@ void Shooter::StopConv() {
 
 
 void Shooter::StopSpin(){
-	//std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
+	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
 	spin->Set(0);
+
 }
 
 void Shooter::ConvToBack() {
@@ -40,7 +41,7 @@ void Shooter::SpinToBack() {
 }
 
 void Shooter::Spin() {
-	//std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
+	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
 	spin->Set(-1);
 }
 

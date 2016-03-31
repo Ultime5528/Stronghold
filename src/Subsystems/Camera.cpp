@@ -5,14 +5,18 @@
 
 int Camera::hueMin(31);
 int Camera::hueMax(152);
-int Camera::satMin(99);
+int Camera::satMin(163);
 int Camera::satMax(255);
 int Camera::valMin(44);
 int Camera::valMax(233);
+int Camera::aireMin(200);
 
 double Camera::distance(0);
-double Camera::angleX(0);
-double Camera::angleY(0);
+
+double Camera::ecart(0);
+
+double Camera::CAMERA_OFFSET(0);
+
 
 Camera::Camera() :
 		Subsystem("Camera")
@@ -41,6 +45,7 @@ void Camera::SendImage() {
 
 	CameraServer::GetInstance()->SetImage(frame);
 }
+
 void Camera::GetInfo() {
 
 	analysed = false;
@@ -57,7 +62,8 @@ void Camera::GetInfo() {
 	ParticleFilterOptions2 filterOptions = {0, 0, 1, 1};
 
 
-	criteria[0] = {IMAQ_MT_AREA, 0, 200, false, true};
+	criteria[0] = {IMAQ_MT_AREA, 0, aireMin, false, true};
+
 
 	int nbParticles(0);
 
@@ -65,7 +71,11 @@ void Camera::GetInfo() {
 	imaqScale(frame, frame, 2, 2, ScalingMode::IMAQ_SCALE_SMALLER, IMAQ_NO_RECT);
 	imaqColorThreshold(binFrame, frame, 255, IMAQ_HSV, &Hue, &Sat, &Val);
 	imaqMorphology(binFrame, binFrame, IMAQ_DILATE, NULL);
-	imaqParticleFilter4(binFrame, binFrame, &criteria[0], 1, &filterOptions, NULL, &nbParticles);
+
+	//imaqParticleFilter4(binFrame, binFrame, &criteria[0], 1, &filterOptions, NULL, &nbParticles);
+
+	imaqCountParticles(binFrame, 0, &nbParticles);
+
 
 	CameraServer::GetInstance()->SetImage(binFrame);
 
@@ -73,6 +83,7 @@ void Camera::GetInfo() {
 	double aireMax(0);
 
 	if(nbParticles > 0) {
+
 		for(int particleIndex = 0; particleIndex < nbParticles; particleIndex++){
 
 			double aire (0);
@@ -84,38 +95,50 @@ void Camera::GetInfo() {
 			}
 		}
 
-		double largeurParticule(0);
-		double hypotenuse(0);
+
+		double hypothenuse(0);
+
 		int hauteurImage(0);
 		int largeurImage(0);
 
 		double centreX(0);
 		double centreY(0);
+		double angleX(0);
+		double angleY(0);
+		double offset(0);
+
 
 		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_X, &centreX);
 		imaqMeasureParticle(binFrame, indexMax, 0, IMAQ_MT_CENTER_OF_MASS_Y, &centreY);
 
 		imaqGetImageSize(binFrame, &largeurImage, &hauteurImage);
-
 		double dHauteurImage(hauteurImage);
 		double dLargeurImage(largeurImage);
 
-		centreX = ((2*centreX)/dLargeurImage)-1;
-		centreY = ((-2*centreY)/dHauteurImage)+1;
 
-		angleX = atan(centreX * tan(FOV_X * acos(-1) / 180));
-		angleY = atan(centreY * tan(FOV_Y * acos(-1) / 180));
-
-
-		distance = (TARGET_HEIGHT-CAMERA_HEIGHT)/tan(CAMERA_ANGLE * acos(-1) / 180.0 + angleY);
-		hypotenuse = sqrt(pow(distance, 2) + pow((TARGET_HEIGHT-CAMERA_HEIGHT), 2));
+		//Normalisation
+		centreX = ((2 * centreX) / dLargeurImage) - 1;
+		centreY = ((-2 * centreY) / dHauteurImage) + 1;
 
 
-		SmartDashboard::PutNumber("Angle", angleX);
-		SmartDashboard::PutNumber("Distance", distance);
-		SmartDashboard::PutNumber("Largeur particule", dLargeurImage);
+		angleX = atan(centreX * tan(FOV_X * acos(-1) / 180.0));
+		angleY = atan(centreY * tan(FOV_Y * acos(-1) / 180.0));
+
+		distance = (TARGET_HEIGHT - CAMERA_HEIGHT) / tan(CAMERA_ANGLE * acos(-1) / 180 + angleY);
+		hypothenuse = sqrt(pow(distance, 2) + pow(TARGET_HEIGHT - CAMERA_HEIGHT, 2));
+
+		offset = hypothenuse * tan(angleX);
+
+		ecart = offset - CAMERA_OFFSET;
 
 
+
+		SmartDashboard::PutNumber("Distance Cible", distance);
+		SmartDashboard::PutNumber("Angle Cible", ecart);
+		SmartDashboard::PutNumber("Aire Particule", aireMax);
+		SmartDashboard::PutNumber("Nombre Particules", nbParticles);
+		SmartDashboard::PutNumber("Hypothenuse", hypothenuse);
+		SmartDashboard::PutNumber("Largeur image", largeurImage);
 	}
 
 	analysed = true;

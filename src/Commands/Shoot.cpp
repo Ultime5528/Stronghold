@@ -1,14 +1,12 @@
 #include "Shoot.h"
-#include "CSetShoot.h"
-#include "Analyse.h"
-#include "Tourner.h"
-#include "Avancer.h"
 #include "CSpin.h"
 #include "CShoot.h"
 
-
-Shoot::Shoot()
+Shoot::Shoot() : CommandGroup("Shoot")
 {
+
+	AddSequential(new CSpin(false));
+	AddSequential(new CShoot(false));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -25,13 +23,4 @@ Shoot::Shoot()
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new CSetShoot());
-	AddSequential(new Analyse());
-	AddSequential(new Tourner(Camera::angle));
-	//AddSequential(new Avancer(Camera::distance));
-	AddSequential(new CSpin());
-	AddSequential(new CShoot());
-	//AddSequential(new CSet(CSet::Position::Min));
-
-
 }
