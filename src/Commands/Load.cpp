@@ -3,6 +3,8 @@
 #include "BSetHaut.h"
 #include "CSetBas.h"
 #include "BSetBas.h"
+#include "CKeep.h"
+#include "CSetLoad.h"
 
 
 Load::Load()
