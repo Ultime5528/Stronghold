@@ -27,7 +27,6 @@ void Viser::Initialize()
 {
 	Robot::camera->GetInfo();
 	m_rotate = false;
-	m_firstTime = true;
 
 	//timer.Reset();
 }
@@ -55,7 +54,7 @@ void Viser::Execute()
 		DriverStation::ReportError("Début tourne");
 		m_rotate = true;
 
-		if(!m_firstTime)
+		if(m_shoot)
 			Scheduler::GetInstance()->AddCommand(new CSpin(false));
 	}
 
@@ -64,18 +63,11 @@ void Viser::Execute()
 		m_continue = true;
 	}
 	else if(m_rotate) {
-
-		if(m_firstTime) {
-			DriverStation::ReportError("Fin première fois Viser");
-			m_firstTime = false;
-			m_rotate = false;
-			m_continue = true;
-		}
-		else {
 			DriverStation::ReportError("Fin tourne");
 			m_rotate = false;
-			Scheduler::GetInstance()->AddCommand(new CShoot(false));
 			Robot::basePilotable->ArcadeDrive(0.0, 0.0);
+		if(m_shoot) {
+			Scheduler::GetInstance()->AddCommand(new CShoot(false));
 		}
 
 	}

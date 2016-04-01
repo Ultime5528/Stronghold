@@ -25,7 +25,6 @@ private :
 	bool m_shoot;
 	bool m_continue = true;
 	bool m_rotate = false;
-	bool m_firstTime = false;
 
 	//Timer timer;
 
