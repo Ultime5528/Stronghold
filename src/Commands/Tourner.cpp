@@ -27,15 +27,14 @@ Tourner::Tourner(double angle, bool shoot): Command("Tourner") {
 // Called just before this Command runs the first time
 void Tourner::Initialize() {
 	Robot::basePilotable->GyroReset();
-	Robot::basePilotable->SetSetpoint(m_angle);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Tourner::Execute() {
-	if(m_angle - Robot::basePilotable->GetGyroAngle() > 0) {
+	if(m_angle > 0) {
 		Robot::basePilotable->ArcadeDrive(0, 0.6);
 	}
-	else if (m_angle - Robot::basePilotable->GetGyroAngle() < 0) {
+	else if (m_angle < 0) {
 		Robot::basePilotable->ArcadeDrive(0, -0.6);
 	}
 
@@ -43,7 +42,7 @@ void Tourner::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool Tourner::IsFinished() {
-    return abs(Robot::basePilotable->GetGyroAngle() - m_angle) < 5;
+    return abs(Robot::basePilotable->GetGyroAngle()) >= abs(m_angle);
 }
 
 // Called once after isFinished returns true

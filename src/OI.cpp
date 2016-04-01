@@ -51,7 +51,12 @@ OI::OI() {
     gamepad.reset(new Joystick(1));
 
     SmartDashboard::PutData(Scheduler::GetInstance());
+    SmartDashboard::PutData("Monter", new CSetShoot());
 
+    SmartDashboard::PutData("Avancer 1m", new Avancer(1));
+    SmartDashboard::PutData("Avancer -1m", new Avancer(-1));
+    SmartDashboard::PutData("Avancer 2m", new Avancer(2));
+    SmartDashboard::PutData("Tourne", new Tourner(40));
 
     button1.reset(new JoystickButton(stick.get(), 1));
     button2.reset(new JoystickButton(stick.get(), 2));
@@ -80,8 +85,8 @@ OI::OI() {
     button9->WhenPressed(new BSpinAvant());
     button11->WhenPressed(new BStopSpinAvant());
 
-    button10->WhileHeld(new BMonteAvant());
-    button12->WhileHeld(new BDescendAvant());
+    button10->WhileHeld(new BSetHaut());
+    button12->WhileHeld(new BSetBas());
 
 
     buttonG1->WhenPressed(new CSetBas());

@@ -3,19 +3,19 @@
 #include "../Commands/AutomaticCapture.h"
 #include <cmath>
 
-int Camera::hueMin(31);
-int Camera::hueMax(152);
-int Camera::satMin(163);
+int Camera::hueMin(44);
+int Camera::hueMax(137);
+int Camera::satMin(156);
 int Camera::satMax(255);
-int Camera::valMin(44);
-int Camera::valMax(233);
+int Camera::valMin(140);
+int Camera::valMax(231);
 int Camera::aireMin(200);
 
 double Camera::distance(0);
 
 double Camera::ecart(0);
 
-double Camera::CAMERA_OFFSET(0);
+double Camera::CAMERA_OFFSET(-0.15);
 
 
 Camera::Camera() :

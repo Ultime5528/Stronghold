@@ -103,6 +103,8 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
+	SmartDashboard::PutBoolean("Bouffeur", Robot::bouffeurAvant->IsPressed());
+	SmartDashboard::PutNumber("Pot shooter", Robot::catapulte->GetPot());
 	//SmartDashboard::PutNumber("Enco Gauche", Robot::basePilotable->GetEncoGauche());
 
 	/*

@@ -17,8 +17,8 @@ private:
 
 	double FOV_X = 23.99;
 	double FOV_Y = 18.46;
-	double CAMERA_ANGLE = 30.0;
-	double CAMERA_HEIGHT = 0.75;
+	double CAMERA_ANGLE = 28.0;
+	double CAMERA_HEIGHT = 0.71;
 
 	double TARGET_HEIGHT = 2.286;
 

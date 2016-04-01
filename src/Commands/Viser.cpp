@@ -6,11 +6,11 @@
 #include "../Robot.h"
 #include <cmath>
 
-double Viser::distance(1.5);
+double Viser::distance(1.8);
 double Viser::distanceOffset(0.1);
 double Viser::offsetX(0.1);
-double Viser::rotation(0.4);
-double Viser::move(0.5);
+double Viser::rotation(0.51);
+double Viser::move(0.6);
 
 
 Viser::Viser(bool shoot) : Command("Viser")//, timer()
