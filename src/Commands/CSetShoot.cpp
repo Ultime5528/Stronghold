@@ -2,19 +2,25 @@
 #include "CMaintien.h"
 #include "CSpin.h"
 #include "../Subsystems/BouffeurAvant.h"
+#include "PMonte.h"
 
-CSetShoot::CSetShoot() : Command("CSetShoot")
+CSetShoot::CSetShoot(bool piston, bool maintien) : Command("CSetShoot")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(Robot::catapulte.get());
-
+	m_piston = piston;
+	m_maintien = maintien;
 }
 
 // Called just before this Command runs the first time
 void CSetShoot::Initialize()
 {
 	//Robot::catapulte->SetAtShoot();
+	if(m_piston)
+	Scheduler::GetInstance()->AddCommand(new PMonte());
+
+
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -35,7 +41,8 @@ bool CSetShoot::IsFinished()
 void CSetShoot::End()
 {
 
-	Scheduler::GetInstance()->AddCommand(new CMaintien());
+	if(m_maintien)
+		Scheduler::GetInstance()->AddCommand(new CMaintien());
 
 }
 

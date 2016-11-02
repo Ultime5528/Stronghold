@@ -53,6 +53,25 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+
+	Camera::hueMin = prefs->GetDouble("hueMin", 44);
+	Camera::hueMax = prefs->GetDouble("hueMax", 137);
+	Camera::satMin = prefs->GetDouble("satMin", 156);
+	Camera::satMax = prefs->GetDouble("satMax", 255);
+	Camera::valMin = prefs->GetDouble("valMin", 140);
+	Camera::valMax = prefs->GetDouble("valMax", 231);
+	Camera::aireMin = prefs->GetDouble("aireMin", 200);
+
+
+	Viser::move = prefs->GetDouble("move", 0.65);
+	Viser::rotation = prefs->GetDouble("rotation", 0.7);
+
+	Viser::distance = prefs->GetDouble("distance", 2.6);
+	Viser::offsetX = prefs->GetDouble("offsetX", 0.05);
+	Viser::distanceOffset = prefs->GetDouble("distanceOffset", 0.1);
+
+	Camera::CAMERA_OFFSET = prefs->GetDouble("ecart", 0.15);
+
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }
@@ -76,22 +95,23 @@ void Robot::TeleopInit() {
 	Catapulte::potMin = prefs->GetDouble("MinimumCatapulte", 0.275);
 	Catapulte::potShoot = prefs->GetDouble("ShootCatapulte", 0.280);*/
 
-	Camera::hueMin = prefs->GetDouble("hueMin", 31);
-	Camera::hueMax = prefs->GetDouble("hueMax", 74);
-	Camera::satMin = prefs->GetDouble("satMin", 7);
-	Camera::satMax = prefs->GetDouble("satMax", 64);
-	Camera::valMin = prefs->GetDouble("valMin", 39);
-	Camera::valMax = prefs->GetDouble("valMax", 116);
+	Camera::hueMin = prefs->GetDouble("hueMin", 44);
+	Camera::hueMax = prefs->GetDouble("hueMax", 137);
+	Camera::satMin = prefs->GetDouble("satMin", 156);
+	Camera::satMax = prefs->GetDouble("satMax", 255);
+	Camera::valMin = prefs->GetDouble("valMin", 140);
+	Camera::valMax = prefs->GetDouble("valMax", 231);
 	Camera::aireMin = prefs->GetDouble("aireMin", 200);
 
-	Viser::move = prefs->GetDouble("move", 0.5);
-	Viser::rotation = prefs->GetDouble("rotation", 0.5);
 
-	Viser::distance = prefs->GetDouble("distance", 1.2);
-	Viser::offsetX = prefs->GetDouble("offsetX", 0.1);
+	Viser::move = prefs->GetDouble("move", 0.65);
+	Viser::rotation = prefs->GetDouble("rotation", 0.7);
+
+	Viser::distance = prefs->GetDouble("distance", 2.6);
+	Viser::offsetX = prefs->GetDouble("offsetX", 0.05);
 	Viser::distanceOffset = prefs->GetDouble("distanceOffset", 0.1);
 
-	Camera::CAMERA_OFFSET = prefs->GetDouble("ecart", -0.18);
+	Camera::CAMERA_OFFSET = prefs->GetDouble("ecart", 0.15);
 
 
 	SmartDashboard::PutNumber("AireMin", Camera::aireMin);
@@ -102,6 +122,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+
 	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
 	SmartDashboard::PutBoolean("Bouffeur", Robot::bouffeurAvant->IsPressed());
 	SmartDashboard::PutNumber("Pot shooter", Robot::catapulte->GetPot());

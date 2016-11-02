@@ -29,19 +29,20 @@ Avancer::Avancer(double distance, bool turn): Command("Avancer") {
 void Avancer::Initialize() {
 	Robot::basePilotable->EncoReset();
 	Robot::basePilotable->GyroReset();
+	SetTimeout(4);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Avancer::Execute() {
 	if (m_distance > 0)
 		Robot::basePilotable->ArcadeDrive(-0.7,0);
-	else if(m_distance <0)
+	else if(m_distance < 0)
 		Robot::basePilotable->ArcadeDrive(0.7,0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Avancer::IsFinished() {
-	return Robot::basePilotable->HasReached(m_distance);
+	return Robot::basePilotable->HasReached(m_distance) or IsTimedOut();
 
 }
 

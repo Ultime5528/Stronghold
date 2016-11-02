@@ -41,6 +41,7 @@ void Viser::Execute()
 
 	if(std::abs(Camera::distance - distance) > distanceOffset && !m_rotate) {
 
+
 		double tourner = 0;
 
 		if(std::abs(Camera::ecart) > offsetX) {
@@ -59,7 +60,7 @@ void Viser::Execute()
 	}
 
 	if(std::abs(Camera::ecart) > offsetX && m_rotate) {
-		Robot::basePilotable->ArcadeDrive(0.0, (Camera::ecart > 0 ? 1 : -1) * rotation);
+		Robot::basePilotable->ArcadeDrive(0.0, (Camera::ecart > 0 ? 1 : -1.1) * rotation);
 		m_continue = true;
 	}
 	else if(m_rotate) {
@@ -140,5 +141,5 @@ void Viser::End()
 // subsystems is scheduled to run
 void Viser::Interrupted()
 {
-
+	DriverStation::ReportError("Viser interrompu");
 }

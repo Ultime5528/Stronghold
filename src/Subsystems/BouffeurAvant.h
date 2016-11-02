@@ -49,6 +49,7 @@ public:
 	void Down();
 	void Stop();
 	void Spin();
+	void SpinInverse();
 	void SpinLent();
 	void StopSpin();
 	/*

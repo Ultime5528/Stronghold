@@ -32,10 +32,10 @@ void Tourner::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void Tourner::Execute() {
 	if(m_angle > 0) {
-		Robot::basePilotable->ArcadeDrive(0, 0.6);
+		Robot::basePilotable->ArcadeDrive(0, 0.7);
 	}
 	else if (m_angle < 0) {
-		Robot::basePilotable->ArcadeDrive(0, -0.6);
+		Robot::basePilotable->ArcadeDrive(0, -0.7);
 	}
 
 }

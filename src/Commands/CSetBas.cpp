@@ -1,17 +1,22 @@
 #include "CSetBas.h"
 #include "../Subsystems/Catapulte.h"
+#include "PRetract.h"
 
-CSetBas::CSetBas() : Command("CSetBas")
+CSetBas::CSetBas(bool piston) : Command("CSetBas")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	Requires(Robot::catapulte.get());
+	m_piston = piston;
 }
 
 // Called just before this Command runs the first time
 void CSetBas::Initialize()
 {
 	//Robot::catapulte->SetAtMin();
+	if(m_piston)
+	Scheduler::GetInstance()->AddCommand(new PRetract());
+
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -56,7 +56,7 @@ void BouffeurAvant::Up() {
 	}
 	*/
 
-	monte->Set(0.4);
+	monte->Set(0.5);
 }
 
 void BouffeurAvant::Down() {
@@ -86,20 +86,24 @@ void BouffeurAvant::Stop() {
 
 void BouffeurAvant::Spin() {
 
-	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
 	spin->Set(1);
 
 }
 
 void BouffeurAvant::SpinLent() {
-	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(false);
-	spin->Set(0.5);
+
+	spin->Set(0.8);
+
+}
+
+void BouffeurAvant::SpinInverse() {
+
+	spin->Set(-1);
 
 }
 
 void BouffeurAvant::StopSpin() {
 	spin->Set(0);
-	std::static_pointer_cast<VictorSP>(spin)->SetSafetyEnabled(true);
 	std::static_pointer_cast<VictorSP>(spin)->StopMotor();
 }
 /*

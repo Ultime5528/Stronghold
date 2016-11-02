@@ -1,15 +1,13 @@
-#ifndef CSETBAS_H
-#define CSETBAS_H
+#ifndef BSPINBACK_H
+#define BSPINBACK_H
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-class CSetBas: public Command
+class BSpinBack: public Command
 {
-private:
-	bool m_piston;
 public:
-	CSetBas(bool piston = false);
+	BSpinBack();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -7,11 +7,15 @@
 
 
 class CSetShoot: public Command {
+private:
+	bool m_piston;
+	bool m_maintien;
+
 public:
 
 	enum Position {Shoot, Min};
 
-	CSetShoot();
+	CSetShoot(bool piston = false, bool m_piston = true);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

@@ -15,10 +15,10 @@
 #include "../RobotMap.h"
 
 
-double Catapulte::potLoad(0.4);
-double Catapulte::potMax(0.42);
-double Catapulte::potMin(0.265);
-double Catapulte::potShoot(0.295);
+double Catapulte::potLoad(0.235);
+double Catapulte::potMax(0.350);
+double Catapulte::potMin(0.200);
+double Catapulte::potShoot(0.205);
 
 Catapulte::Catapulte() : Subsystem("Catapulte") {
 

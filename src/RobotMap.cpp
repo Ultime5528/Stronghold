@@ -44,6 +44,7 @@ void RobotMap::init() {
     lw->AddActuator("Catapulte", "Monte", std::static_pointer_cast<VictorSP>(catapulteMonte));
 
     bouffeurAvantspin.reset(new VictorSP(5));
+    std::static_pointer_cast<VictorSP>(bouffeurAvantspin)->SetSafetyEnabled(false);
     lw->AddActuator("BouffeurAvant", "spin", std::static_pointer_cast<VictorSP>(bouffeurAvantspin));
     
     bouffeurAvantmonte.reset(new VictorSP(4));
@@ -70,7 +71,7 @@ void RobotMap::init() {
     basePilotableDrive->SetSafetyEnabled(true);
     basePilotableDrive->SetExpiration(0.1);
     basePilotableDrive->SetSensitivity(0.5);
-    basePilotableDrive->SetMaxOutput(1);
+    basePilotableDrive->SetMaxOutput(0.75);
 
     basePilotableencoGauche.reset(new Encoder(0, 1, false, Encoder::k4X));
     lw->AddSensor("BasePilotable", "encoGauche", basePilotableencoGauche);
@@ -87,6 +88,7 @@ void RobotMap::init() {
     lw->AddActuator("Shooter", "Convoyeur", std::static_pointer_cast<VictorSP>(shooterConv));
 
     shooterSpin.reset(new VictorSP(7));
+    std::static_pointer_cast<VictorSP>(shooterSpin)->SetSafetyEnabled(false);
     lw->AddActuator("Shooter", "Spin", std::static_pointer_cast<VictorSP>(shooterSpin));
 
     catapultepot.reset(new AnalogPotentiometer(0, 1.0, 0.0));
