@@ -17,8 +17,8 @@
 
 double Catapulte::potLoad(0.235);
 double Catapulte::potMax(0.350);
-double Catapulte::potMin(0.200);
-double Catapulte::potShoot(0.205);
+double Catapulte::potMin(0.213);
+double Catapulte::potShoot(0.218);
 
 Catapulte::Catapulte() : Subsystem("Catapulte") {
 

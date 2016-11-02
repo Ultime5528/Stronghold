@@ -86,19 +86,19 @@ void BouffeurAvant::Stop() {
 
 void BouffeurAvant::Spin() {
 
-	spin->Set(1);
+	spin->Set(-1);
 
 }
 
 void BouffeurAvant::SpinLent() {
 
-	spin->Set(0.8);
+	spin->Set(-0.8);
 
 }
 
 void BouffeurAvant::SpinInverse() {
 
-	spin->Set(-1);
+	spin->Set(1);
 
 }
 
