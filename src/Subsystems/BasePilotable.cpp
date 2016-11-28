@@ -37,6 +37,9 @@ BasePilotable::BasePilotable() : Subsystem("BasePilotable") {
     m_setpoint = 0.0;
 
     gyro->Calibrate();
+
+    stick = Robot::oi->getStick();
+
 }
 
 void BasePilotable::InitDefaultCommand() {
@@ -53,7 +56,7 @@ void BasePilotable::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void BasePilotable::ArcadeDrive(){
-	drive->ArcadeDrive(Robot::oi->getStick().get(), true);
+	drive->ArcadeDrive(stick.get(), true);
 
 }
 

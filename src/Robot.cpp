@@ -26,12 +26,13 @@ std::shared_ptr<Shooter> Robot::shooter;
 void Robot::RobotInit() {
 	RobotMap::init();
 
+	oi.reset(new OI());
+
     catapulte.reset(new Catapulte());
     bouffeurAvant.reset(new BouffeurAvant());
     rouesPivot.reset(new RouesPivot());
     basePilotable.reset(new BasePilotable());
 
-	oi.reset(new OI());
 	camera.reset(new Camera());
 	shooter.reset(new Shooter());
 
