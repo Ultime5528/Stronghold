@@ -3,6 +3,9 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include <mutex>
+#include <thread>
+#include <memory>
 
 
 //include sur
@@ -14,13 +17,18 @@ private:
 	IMAQdxSession session;
 	Image* frame;
 
+	double centreX;
+	double hauteur;
 
-	double FOV_X = 23.99;
-	double FOV_Y = 18.46;
-	double CAMERA_ANGLE = 28.0;
-	double CAMERA_HEIGHT = 0.71;
+	mutable std::mutex camMutex;
 
-	double TARGET_HEIGHT = 2.286;
+	std::unique_ptr<std::thread> thread;
+
+	bool m_threadRunning;
+	bool m_endThread;
+
+	void InfoRun();
+
 
 public:
 
@@ -33,17 +41,16 @@ public:
 
 	static int aireMin;
 
-	static double distance;
-
-	static double ecart;
-
 	static double CAMERA_OFFSET;
-
 
 	Camera();
 	void InitDefaultCommand();
 	void SendImage();
 	void GetInfo();
+	double GetCentreX() const;
+	double GetHauteur() const;
+	void StartThread();
+	void EndThread();
 
 };
 

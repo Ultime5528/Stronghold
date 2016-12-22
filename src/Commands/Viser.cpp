@@ -4,43 +4,48 @@
 #include "CShoot.h"
 #include "../Subsystems/Camera.h"
 #include "../Robot.h"
-#include <cmath>
 
-double Viser::distance(1.8);
-double Viser::distanceOffset(0.1);
-double Viser::offsetX(0.1);
-double Viser::rotation(0.51);
-double Viser::move(0.6);
+double Viser::TARGET_H(0.0);
+double Viser::TARGET_H_OFFSET(0.0);
+double Viser::TARGET_X(0.0);
+double Viser::TARGET_X_OFFSET(0.0);
 
+double Viser::FORWARD_P(0.0);
+double Viser::FORWARD_I(0.0);
+double Viser::FORWARD_D(0.0);
 
-Viser::Viser(bool shoot) : Command("Viser")//, timer()
+double Viser::ROTATE_P(0.0);
+double Viser::ROTATE_I(0.0);
+double Viser::ROTATE_D(0.0);
+
+Viser::Viser(bool shoot) :
+		Command("Viser"),
+		forwardPID(nullptr),
+		rotatePID(nullptr),
+		m_finished(false)
 {
-	Requires(Robot::basePilotable.get());
+	//Requires(Robot::basePilotable.get());
 	Requires(Robot::camera.get());
-
-	m_shoot = shoot;
 
 }
 
 // Called just before this Command runs the first time
 void Viser::Initialize()
 {
-	Robot::camera->GetInfo();
-	m_rotate = false;
-
-	//timer.Reset();
+	Robot::camera->StartThread();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Viser::Execute()
 {
-	Robot::camera->GetInfo();
 
 
+
+	///Code de l'an passé
+	/*
 	m_continue = false;
 
 	if(std::abs(Camera::distance - distance) > distanceOffset && !m_rotate) {
-
 
 		double tourner = 0;
 
@@ -50,6 +55,7 @@ void Viser::Execute()
 
 		Robot::basePilotable->ArcadeDrive(((Camera::distance - distance) > 0 ? -1 : 1) * move, tourner);
 		m_continue = true;
+
 	}
 	else if(!m_rotate) {
 		DriverStation::ReportError("Début tourne");
@@ -72,6 +78,8 @@ void Viser::Execute()
 		}
 
 	}
+
+	*/
 
 	//Version avec timer
 /*
@@ -128,12 +136,13 @@ void Viser::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool Viser::IsFinished()
 {
-	return !m_continue;
+	return m_finished;
 }
 
 // Called once after isFinished returns true
 void Viser::End()
 {
+	Robot::camera->EndThread();
 	DriverStation::ReportError("Fin viser");
 }
 
@@ -141,5 +150,6 @@ void Viser::End()
 // subsystems is scheduled to run
 void Viser::Interrupted()
 {
+	Robot::camera->EndThread();
 	DriverStation::ReportError("Viser interrompu");
 }

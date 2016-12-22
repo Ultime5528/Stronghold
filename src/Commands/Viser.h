@@ -2,17 +2,25 @@
 #define VISER_H
 
 #include "WPILib.h"
+#include "../Others/PIDCalculator.h"
 
 class Viser: public Command
 {
 
 public:
 
-	static double distance;
-	static double distanceOffset;
-	static double offsetX;
-	static double rotation;
-	static double move;
+	static double TARGET_H;
+	static double TARGET_H_OFFSET;
+	static double TARGET_X;
+	static double TARGET_X_OFFSET;
+
+	static double FORWARD_P;
+	static double FORWARD_I;
+	static double FORWARD_D;
+
+	static double ROTATE_P;
+	static double ROTATE_I;
+	static double ROTATE_D;
 
 	Viser(bool shoot = true);
 	void Initialize();
@@ -22,9 +30,12 @@ public:
 	void Interrupted();
 
 private :
-	bool m_shoot;
-	bool m_continue = true;
-	bool m_rotate = false;
+
+	frc::PIDCalculator* forwardPID;
+	frc::PIDCalculator* rotatePID;
+
+	bool m_finished;
+
 
 	//Timer timer;
 
