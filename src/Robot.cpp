@@ -58,15 +58,7 @@ void Robot::DisabledPeriodic() {
 
 void Robot::AutonomousInit() {
 
-	Camera::hueMin = prefs->GetDouble("hueMin", 44);
-	Camera::hueMax = prefs->GetDouble("hueMax", 137);
-	Camera::satMin = prefs->GetDouble("satMin", 156);
-	Camera::satMax = prefs->GetDouble("satMax", 255);
-	Camera::valMin = prefs->GetDouble("valMin", 140);
-	Camera::valMax = prefs->GetDouble("valMax", 231);
-	Camera::aireMin = prefs->GetDouble("aireMin", 200);
-
-
+	GetPreferences();
 
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
@@ -91,13 +83,7 @@ void Robot::TeleopInit() {
 	Catapulte::potMin = prefs->GetDouble("MinimumCatapulte", 0.275);
 	Catapulte::potShoot = prefs->GetDouble("ShootCatapulte", 0.280);*/
 
-	Camera::hueMin = prefs->GetDouble("hueMin", 44);
-	Camera::hueMax = prefs->GetDouble("hueMax", 137);
-	Camera::satMin = prefs->GetDouble("satMin", 156);
-	Camera::satMax = prefs->GetDouble("satMax", 255);
-	Camera::valMin = prefs->GetDouble("valMin", 140);
-	Camera::valMax = prefs->GetDouble("valMax", 231);
-	Camera::aireMin = prefs->GetDouble("aireMin", 200);
+	GetPreferences();
 
 	Robot::basePilotable->GyroReset();
 
@@ -107,18 +93,38 @@ void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 
 	SmartDashboard::PutNumber("Gyro", Robot::basePilotable->GetGyroAngle());
-	SmartDashboard::PutBoolean("Bouffeur", Robot::bouffeurAvant->IsPressed());
-	SmartDashboard::PutNumber("Pot shooter", Robot::catapulte->GetPot());
-	//SmartDashboard::PutNumber("Enco Gauche", Robot::basePilotable->GetEncoGauche());
 
-	/*
-	SmartDashboard::PutBoolean("Switch shooter", Robot::shooter->IsLoaded());
-	SmartDashboard::PutBoolean("Switch intake", Robot::bouffeurAvant->IsPressed());
-	BouffeurAvant::potLoad = prefs->GetDouble("potLoad", 0.538);*/
 }
 
 void Robot::TestPeriodic() {
 	lw->Run();
+}
+
+void Robot::GetPreferences() {
+
+	Preferences* prefs = Preferences::GetInstance();
+
+	Camera::hueMin = prefs->GetDouble("hueMin", 44);
+	Camera::hueMax = prefs->GetDouble("hueMax", 137);
+	Camera::satMin = prefs->GetDouble("satMin", 156);
+	Camera::satMax = prefs->GetDouble("satMax", 255);
+	Camera::valMin = prefs->GetDouble("valMin", 140);
+	Camera::valMax = prefs->GetDouble("valMax", 231);
+	Camera::aireMin = prefs->GetDouble("aireMin", 200);
+
+	Viser::TARGET_H = prefs->GetDouble("target_h", 0.1);
+	Viser::TARGET_H_OFFSET = prefs->GetDouble("target_h_offset", 0.02);
+	Viser::TARGET_X = prefs->GetDouble("target_x", 0.0);
+	Viser::TARGET_X_OFFSET = prefs->GetDouble("target_x_offset", 0.1);
+
+	Viser::FORWARD_P = prefs->GetDouble("forward_p", 0.0);
+	Viser::FORWARD_I = prefs->GetDouble("forward_i", 0.0);;
+	Viser::FORWARD_D = prefs->GetDouble("forward_d", 0.0);;
+
+	Viser::ROTATE_P = prefs->GetDouble("rotate_p", 0.0);
+	Viser::ROTATE_I = prefs->GetDouble("rotate_i", 0.0);;
+	Viser::ROTATE_D = prefs->GetDouble("rotate_d", 0.0);;
+
 }
 
 START_ROBOT_CLASS(Robot);
