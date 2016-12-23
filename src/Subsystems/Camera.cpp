@@ -132,9 +132,10 @@ double Camera::GetHauteur() const {
 
 void Camera::EndThread() {
 	m_endThread = true;
+	thread->join();
 }
 
-void Camera::InfoRun(SetParamHandler func) {
+void Camera::RunThread(SetParamHandler func) {
 
 	DriverStation::ReportError("Début thread");
 

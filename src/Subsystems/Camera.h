@@ -27,7 +27,7 @@ private:
 	bool m_threadRunning;
 	bool m_endThread;
 
-	void InfoRun(SetParamHandler func = SetParamHandler());
+	void RunThread(SetParamHandler func = SetParamHandler());
 
 
 public:
@@ -64,15 +64,9 @@ public:
 			m_threadRunning = true;
 			m_endThread = false;
 
-			if(thread) {
-				thread->join();
-				thread.reset();
-			}
-
-
 			DriverStation::ReportError("Start new thread in StartThread()");
 
-			thread.reset( new std::thread([=] { InfoRun(func); }) );
+			thread.reset( new std::thread([=] { RunThread(func); }) );
 		}
 		else {
 			DriverStation::ReportError("Can't start new Cam Thread. Already running.");
