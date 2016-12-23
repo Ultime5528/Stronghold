@@ -327,6 +327,7 @@ void PIDCalculator::SetOutputRange(double minimumOutput, double maximumOutput) {
 void PIDCalculator::SetInput(double input) {
 	//std::lock_guard<priority_recursive_mutex> sync(m_mutex);
 	m_input = input;
+	Calculate();
 }
 
 double PIDCalculator::GetInput() const {
