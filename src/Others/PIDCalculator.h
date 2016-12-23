@@ -85,11 +85,13 @@ class PIDCalculator : public LiveWindowSendable,
 
   void InitTable(std::shared_ptr<ITable> subtable) override;
 
+  virtual void Calculate();
+
  protected:
 
 
   std::shared_ptr<ITable> m_table;
-  virtual void Calculate();
+
   virtual double CalculateFeedForward();
   double GetContinuousError(double error) const;
 
