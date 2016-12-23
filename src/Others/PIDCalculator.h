@@ -16,7 +16,6 @@
 
 #include "Base.h"
 #include "Controller.h"
-#include "HAL/cpp/priority_mutex.h"
 #include "LiveWindow/LiveWindow.h"
 #include "Notifier.h"
 #include "PIDInterface.h"
@@ -141,7 +140,7 @@ class PIDCalculator : public LiveWindowSendable,
   std::queue<double> m_buf;
   double m_bufTotal = 0;
 
-  mutable priority_recursive_mutex m_mutex;
+  //mutable priority_recursive_mutex m_mutex;
 
   //std::unique_ptr<Notifier> m_controlLoop;
   Timer m_setpointTimer;

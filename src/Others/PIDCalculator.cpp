@@ -92,14 +92,14 @@ void PIDCalculator::Calculate() {
   bool enabled;
 
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     //pidInput = m_pidInput;
     //pidOutput = m_pidOutput;
     enabled = m_enabled;
   }
 
   if (enabled) {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     double input = m_input;
 
     m_error = GetContinuousError(m_setpoint - input);
@@ -189,7 +189,7 @@ double PIDCalculator::CalculateFeedForward() {
  */
 void PIDCalculator::SetPID(double p, double i, double d) {
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     m_P = p;
     m_I = i;
     m_D = d;
@@ -214,7 +214,7 @@ void PIDCalculator::SetPID(double p, double i, double d) {
  */
 void PIDCalculator::SetPID(double p, double i, double d, double f) {
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     m_P = p;
     m_I = i;
     m_D = d;
@@ -235,7 +235,7 @@ void PIDCalculator::SetPID(double p, double i, double d, double f) {
  * @return proportional coefficient
  */
 double PIDCalculator::GetP() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return m_P;
 }
 
@@ -245,7 +245,7 @@ double PIDCalculator::GetP() const {
  * @return integral coefficient
  */
 double PIDCalculator::GetI() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return m_I;
 }
 
@@ -255,7 +255,7 @@ double PIDCalculator::GetI() const {
  * @return differential coefficient
  */
 double PIDCalculator::GetD() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return m_D;
 }
 
@@ -265,7 +265,7 @@ double PIDCalculator::GetD() const {
  * @return Feed forward coefficient
  */
 double PIDCalculator::GetF() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return m_F;
 }
 
@@ -277,7 +277,7 @@ double PIDCalculator::GetF() const {
  * @return the latest calculated output
  */
 double PIDCalculator::Get() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return m_result;
 }
 
@@ -291,7 +291,7 @@ double PIDCalculator::Get() const {
  * @param continuous true turns on continuous, false turns off continuous
  */
 void PIDCalculator::SetContinuous(bool continuous) {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   m_continuous = continuous;
 }
 
@@ -303,7 +303,7 @@ void PIDCalculator::SetContinuous(bool continuous) {
  */
 void PIDCalculator::SetInputRange(double minimumInput, double maximumInput) {
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     m_minimumInput = minimumInput;
     m_maximumInput = maximumInput;
   }
@@ -318,19 +318,19 @@ void PIDCalculator::SetInputRange(double minimumInput, double maximumInput) {
  * @param maximumOutput the maximum value to write to the output
  */
 void PIDCalculator::SetOutputRange(double minimumOutput, double maximumOutput) {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   m_minimumOutput = minimumOutput;
   m_maximumOutput = maximumOutput;
 }
 
 
 void PIDCalculator::SetInput(double input) {
-	std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+	//std::lock_guard<priority_recursive_mutex> sync(m_mutex);
 	m_input = input;
 }
 
 double PIDCalculator::GetInput() const {
-	std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+	//std::lock_guard<priority_recursive_mutex> sync(m_mutex);
 	return m_input;
 }
 
@@ -344,7 +344,7 @@ double PIDCalculator::GetInput() const {
  */
 void PIDCalculator::SetSetpoint(float setpoint) {
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
 
     if (m_maximumInput > m_minimumInput) {
       if (setpoint > m_maximumInput)
@@ -373,7 +373,7 @@ void PIDCalculator::SetSetpoint(float setpoint) {
  * @return the current setpoint
  */
 double PIDCalculator::GetSetpoint() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return m_setpoint;
 }
 
@@ -383,12 +383,12 @@ double PIDCalculator::GetSetpoint() const {
  * @return the change in setpoint over time
  */
 double PIDCalculator::GetDeltaSetpoint() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return (m_setpoint - m_prevSetpoint) / m_setpointTimer.Get();
 }
 
 double PIDCalculator::GetResult() const {
-	std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+	//std::lock_guard<priority_recursive_mutex> sync(m_mutex);
 	return m_result;
 }
 
@@ -400,7 +400,7 @@ double PIDCalculator::GetResult() const {
 double PIDCalculator::GetError() const {
   double setpoint = GetSetpoint();
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+   // std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     return GetContinuousError(setpoint - m_input);
   }
 }
@@ -431,7 +431,7 @@ PIDSourceType PIDCalculator::GetPIDSourceType() const {
 double PIDCalculator::GetAvgError() const {
   double avgError = 0;
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     // Don't divide by zero.
     if (m_buf.size()) avgError = m_bufTotal / m_buf.size();
   }
@@ -445,7 +445,7 @@ double PIDCalculator::GetAvgError() const {
  * @param percentage error which is tolerable
  */
 void PIDCalculator::SetTolerance(double percent) {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   m_toleranceType = kPercentTolerance;
   m_tolerance = percent;
 }
@@ -457,7 +457,7 @@ void PIDCalculator::SetTolerance(double percent) {
  * @param percentage error which is tolerable
  */
 void PIDCalculator::SetAbsoluteTolerance(double absTolerance) {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   m_toleranceType = kAbsoluteTolerance;
   m_tolerance = absTolerance;
 }
@@ -469,7 +469,7 @@ void PIDCalculator::SetAbsoluteTolerance(double absTolerance) {
  * @param percentage error which is tolerable
  */
 void PIDCalculator::SetPercentTolerance(double percent) {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   m_toleranceType = kPercentTolerance;
   m_tolerance = percent;
 }
@@ -485,7 +485,7 @@ void PIDCalculator::SetPercentTolerance(double percent) {
  * @param bufLength Number of previous cycles to average. Defaults to 1.
  */
 void PIDCalculator::SetToleranceBuffer(int bufLength) {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   m_bufLength = bufLength;
 
   // Cut the buffer down to size if needed.
@@ -507,7 +507,7 @@ void PIDCalculator::SetToleranceBuffer(int bufLength) {
  * This will return false until at least one input value has been computed.
  */
 bool PIDCalculator::OnTarget() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   if (m_buf.size() == 0) return false;
   double error = GetAvgError();
   switch (m_toleranceType) {
@@ -530,7 +530,7 @@ bool PIDCalculator::OnTarget() const {
  */
 void PIDCalculator::Enable() {
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     m_enabled = true;
   }
 
@@ -544,7 +544,7 @@ void PIDCalculator::Enable() {
  */
 void PIDCalculator::Disable() {
   {
-    std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+    //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
     m_enabled = false;
   }
 
@@ -557,7 +557,7 @@ void PIDCalculator::Disable() {
  * Return true if PIDController is enabled.
  */
 bool PIDCalculator::IsEnabled() const {
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   return m_enabled;
 }
 
@@ -567,7 +567,7 @@ bool PIDCalculator::IsEnabled() const {
 void PIDCalculator::Reset() {
   Disable();
 
-  std::lock_guard<priority_recursive_mutex> sync(m_mutex);
+  //std::lock_guard<priority_recursive_mutex> sync(m_mutex);
   m_prevError = 0;
   m_totalError = 0;
   m_result = 0;
