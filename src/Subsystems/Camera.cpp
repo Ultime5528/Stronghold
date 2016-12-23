@@ -2,6 +2,8 @@
 #include "../RobotMap.h"
 #include "../Commands/AutomaticCapture.h"
 #include <cmath>
+#include <functional>
+#include <utility>
 
 
 int Camera::hueMin(44);
@@ -46,7 +48,7 @@ void Camera::SendImage() {
 	CameraServer::GetInstance()->SetImage(frame);
 }
 
-void Camera::GetInfo() {
+void Camera::GetInfo(SetParamHandler func) {
 
 	Image* binFrame = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 
@@ -108,6 +110,9 @@ void Camera::GetInfo() {
 			SmartDashboard::PutNumber("Centre X Norm", centreX);
 			SmartDashboard::PutNumber("Hauteur particule Norm", hauteur);
 
+			if(func)
+				func(hauteur, centreX);
+
 		}
 
 	}
@@ -124,39 +129,17 @@ double Camera::GetHauteur() const {
 	return hauteur;
 }
 
-void Camera::StartThread() {
-
-	if(!m_threadRunning) {
-		m_threadRunning = true;
-		m_endThread = false;
-
-		if(thread) {
-			thread->join();
-			thread.reset();
-		}
-
-
-		DriverStation::ReportError("Start new thread in StartThread()");
-
-		thread.reset( new std::thread([=] { InfoRun(); }) );
-	}
-	else {
-		DriverStation::ReportError("Can't start new Cam Thread. Already running.");
-	}
-
-
-}
 
 void Camera::EndThread() {
 	m_endThread = true;
 }
 
-void Camera::InfoRun() {
+void Camera::InfoRun(SetParamHandler func) {
 
 	DriverStation::ReportError("Début thread");
 
 	do {
-		GetInfo();
+		GetInfo(func);
 		Wait(0.10);
 
 	} while(!m_endThread);

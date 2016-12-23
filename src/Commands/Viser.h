@@ -2,6 +2,8 @@
 #define VISER_H
 
 #include "WPILib.h"
+#include "memory"
+#include <mutex>
 #include "../Others/PIDCalculator.h"
 
 class Viser: public Command
@@ -28,14 +30,18 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+	void SetParameters(double hauteur, double centreX);
 
 private :
 
-	frc::PIDCalculator* forwardPID;
-	frc::PIDCalculator* rotatePID;
+	std::unique_ptr<frc::PIDCalculator> forwardPID;
+	std::unique_ptr<frc::PIDCalculator> rotatePID;
 
-	bool m_finished;
+	bool m_isFinished;
+	double m_hauteur;
+	double m_centreX;
 
+	std::mutex m_mutex;
 
 	//Timer timer;
 

@@ -22,24 +22,57 @@ Viser::Viser(bool shoot) :
 		Command("Viser"),
 		forwardPID(nullptr),
 		rotatePID(nullptr),
-		m_finished(false)
+		m_isFinished(false),
+		m_hauteur(1.0),
+		m_centreX(1.0)
 {
-	//Requires(Robot::basePilotable.get());
+	Requires(Robot::basePilotable.get());
 	Requires(Robot::camera.get());
+	forwardPID.reset(new frc::PIDCalculator(FORWARD_P, FORWARD_I, FORWARD_D));
+	rotatePID.reset(new frc::PIDCalculator(ROTATE_P, ROTATE_I, ROTATE_D));
 
 }
 
 // Called just before this Command runs the first time
 void Viser::Initialize()
 {
-	Robot::camera->StartThread();
+	forwardPID->SetPID(FORWARD_P, FORWARD_I, FORWARD_D);
+	forwardPID->SetInputRange(0.0, 1.0);
+	forwardPID->SetOutputRange(-1.0, 1.0);
+	forwardPID->Enable();
+
+	rotatePID->SetPID(ROTATE_P, ROTATE_I, ROTATE_D);
+	rotatePID->SetInputRange(-1.0, 1.0);
+	rotatePID->SetOutputRange(-1.0, 1.0);
+	rotatePID->Enable();
+
+	Robot::camera->StartThread(&Viser::SetParameters, this);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Viser::Execute()
 {
+/*
+	m_hauteur = Robot::camera->GetHauteur();
+	m_centreX = Robot::camera->GetCentreX();
+*/
+	{
+		std::unique_lock<std::mutex> lock(m_mutex, std::try_to_lock);
 
+		if(lock.owns_lock()) {
+			forwardPID->SetInput(m_hauteur);
+			rotatePID->SetInput(m_centreX);
+		}
+		else {
+			forwardPID->Calculate();
+			rotatePID->Calculate();
+		}
+	}
 
+	Robot::basePilotable->ArcadeDrive(forwardPID->Get(), rotatePID->Get());
+
+	SmartDashboard::PutNumber("ForwardPID Get", forwardPID->Get());
+	SmartDashboard::PutNumber("RotatePID Get", rotatePID->Get());
 
 	///Code de l'an passé
 	/*
@@ -136,13 +169,15 @@ void Viser::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool Viser::IsFinished()
 {
-	return m_finished;
+	return fabs(m_centreX - TARGET_X) < TARGET_X_OFFSET && fabs(m_hauteur - TARGET_H) < TARGET_H_OFFSET;
 }
 
 // Called once after isFinished returns true
 void Viser::End()
 {
 	Robot::camera->EndThread();
+	forwardPID->Disable();
+	rotatePID->Disable();
 	DriverStation::ReportError("Fin viser");
 }
 
@@ -150,6 +185,12 @@ void Viser::End()
 // subsystems is scheduled to run
 void Viser::Interrupted()
 {
-	Robot::camera->EndThread();
+	End();
 	DriverStation::ReportError("Viser interrompu");
+}
+
+void Viser::SetParameters(double hauteur, double centreX) {
+	std::lock_guard<std::mutex> lock(m_mutex);
+	m_hauteur = hauteur;
+	m_centreX = centreX;
 }
