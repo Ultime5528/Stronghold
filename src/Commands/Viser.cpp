@@ -4,8 +4,9 @@
 #include "CShoot.h"
 #include "../Subsystems/Camera.h"
 #include "../Robot.h"
+#include <string>
 
-double Viser::TARGET_H(0.0);
+double Viser::TARGET_H(0.2);
 double Viser::TARGET_H_OFFSET(0.0);
 double Viser::TARGET_X(0.0);
 double Viser::TARGET_X_OFFSET(0.0);
@@ -18,7 +19,7 @@ double Viser::ROTATE_P(0.0);
 double Viser::ROTATE_I(0.0);
 double Viser::ROTATE_D(0.0);
 
-Viser::Viser(bool shoot) :
+Viser::Viser() :
 		Command("Viser"),
 		forwardPID(nullptr),
 		rotatePID(nullptr),
@@ -39,11 +40,13 @@ void Viser::Initialize()
 	forwardPID->SetPID(FORWARD_P, FORWARD_I, FORWARD_D);
 	forwardPID->SetInputRange(0.0, 1.0);
 	forwardPID->SetOutputRange(-1.0, 1.0);
+	forwardPID->SetSetpoint(TARGET_H);
 	forwardPID->Enable();
 
 	rotatePID->SetPID(ROTATE_P, ROTATE_I, ROTATE_D);
 	rotatePID->SetInputRange(-1.0, 1.0);
 	rotatePID->SetOutputRange(-1.0, 1.0);
+	rotatePID->SetSetpoint(TARGET_X);
 	rotatePID->Enable();
 
 	Robot::camera->StartThread(&Viser::SetParameters, this);
@@ -52,22 +55,24 @@ void Viser::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void Viser::Execute()
 {
-/*
-	m_hauteur = Robot::camera->GetHauteur();
-	m_centreX = Robot::camera->GetCentreX();
-*/
+
 	{
 		std::unique_lock<std::mutex> lock(m_mutex, std::try_to_lock);
 
 		if(lock.owns_lock()) {
 			forwardPID->SetInput(m_hauteur);
 			rotatePID->SetInput(m_centreX);
+
+			DriverStation::ReportError("Hauteur : " + std::to_string(m_hauteur));
+			DriverStation::ReportError("CentreX : " + std::to_string(m_centreX));
 		}
 		else {
 			forwardPID->Calculate();
 			rotatePID->Calculate();
 		}
 	}
+
+	SmartDashboard::PutNumber("Forward Setpoint", forwardPID->GetSetpoint());
 
 	Robot::basePilotable->ArcadeDrive(forwardPID->Get(), rotatePID->Get());
 

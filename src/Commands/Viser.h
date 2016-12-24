@@ -24,7 +24,7 @@ public:
 	static double ROTATE_I;
 	static double ROTATE_D;
 
-	Viser(bool shoot = true);
+	Viser();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

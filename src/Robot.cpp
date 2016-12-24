@@ -112,9 +112,9 @@ void Robot::GetPreferences() {
 	Camera::valMax = prefs->GetDouble("valMax", 231);
 	Camera::aireMin = prefs->GetDouble("aireMin", 200);
 
-	Viser::TARGET_H = prefs->GetDouble("target_h", 0.1);
+	Viser::TARGET_H = prefs->GetDouble("target_h", 0.2);
 	Viser::TARGET_H_OFFSET = prefs->GetDouble("target_h_offset", 0.02);
-	Viser::TARGET_X = prefs->GetDouble("target_x", 0.0);
+	Viser::TARGET_X = prefs->GetDouble("target_x", 0.2);
 	Viser::TARGET_X_OFFSET = prefs->GetDouble("target_x_offset", 0.1);
 
 	Viser::FORWARD_P = prefs->GetDouble("forward_p", 0.0);
@@ -122,8 +122,10 @@ void Robot::GetPreferences() {
 	Viser::FORWARD_D = prefs->GetDouble("forward_d", 0.0);;
 
 	Viser::ROTATE_P = prefs->GetDouble("rotate_p", 0.0);
-	Viser::ROTATE_I = prefs->GetDouble("rotate_i", 0.0);;
-	Viser::ROTATE_D = prefs->GetDouble("rotate_d", 0.0);;
+	Viser::ROTATE_I = prefs->GetDouble("rotate_i", 0.0);
+	Viser::ROTATE_D = prefs->GetDouble("rotate_d", 0.0);
+
+	DriverStation::ReportError("GetPreferences");
 
 }
 
